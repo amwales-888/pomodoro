@@ -76,3 +76,11 @@ Less than 85 mm x 50mm
  - Use 2 AAA Batteries in series at 2v-3v to extend runtime and reduce end user cost over lithium CR2032 cell.
  - Use Microchip MPLAB-X, XC8 and Pickit5 for development.
  - 67mm x 40mm board area, battery holder mounted on the back.
+
+Board Top
+
+![Board Top](Hardware/pomodoro-pic16f15355/images/pomodoro-top.png?raw=true "Board Top")
+
+Board Bottom
+
+![Board Bottom](Hardware/pomodoro-pic16f15355/images/pomodoro-bot.png?raw=true "Board Bottom")
