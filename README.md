@@ -72,7 +72,7 @@ Less than 85 mm x 50mm
 ## Proposal
 
  - Use a lowcost pic16lf15355 SOIC 28 MCU which can be powered from 1.8v-5v, running from internal oscillator and able to idle at very low current.
- - Use 7 red/gree bi-color, low power LEDs 
+ - Use 7 red/green bi-color, low power LEDs 
  - Use 2 AAA Batteries in series at 2v-3v to extend runtime and reduce end user cost over lithium CR2032 cell.
  - Use Microchip MPLAB-X, XC8 and Pickit5 for development.
  - 67mm x 40mm board area, battery holder mounted on the back.
