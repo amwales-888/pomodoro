@@ -456,7 +456,14 @@ void main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
-
+    
+    /* Wait for any button bouncing to settle after reset, we may have
+     * just been woken with a button press and need to filter it out
+     */
+    while (IO_BUTTON_GetValue() == 0) {
+        __delay_ms(100);        
+    }
+        
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
 
