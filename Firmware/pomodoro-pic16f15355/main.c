@@ -194,8 +194,35 @@ static void processIntegrator(void) {
     }
 }
 
+static bool sleep;
+
+
 static void buttonReleased(void) {
 
+    if (sleep) {
+
+        /* Stop our system timer */
+        
+        TMR0_StopTimer();
+
+        /* Wait for any button bouncing to settle */
+
+        __delay_ms(1000);
+
+        /* Go to sleep, the only interrupt active should be on our button */
+        
+        SLEEP();
+
+        /* An interrupt has woken us up from sleep */
+        
+        NOP();
+        NOP();
+        NOP();
+
+        /* restart */
+        
+        RESET();
+    }
 }
 
 static void buttonHeld(void) {
@@ -212,10 +239,9 @@ static void buttonHeld(void) {
         
         buzzStop();
         
-        /* TODO - Sleep here or power off using latch */
+        /* Signal that we want to enter sleep */
         
-        while(1) {            
-        }
+        sleep = 1;        
     }    
 }
 

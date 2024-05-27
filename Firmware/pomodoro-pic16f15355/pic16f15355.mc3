@@ -1280,7 +1280,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ioc RA7"/>
-         <value>none</value>
+         <value>negative</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ioc RB0"/>
@@ -1380,7 +1380,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="iocUserSet RA7"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="iocUserSet RB0"/>
@@ -4372,7 +4372,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="IOCI" settingAlias="enable"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="IOCI" settingAlias="flag"/>
@@ -5893,16 +5893,16 @@
    </tokenMap>
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
+         <file>mcc_generated_files\interrupt_manager.h</file>
+         <hash>aaaa410a4bfe60edaf655a619a78546d90c1ebd28df946e67416316a158f5512</hash>
+      </entry>
+      <entry>
          <file>mcc_generated_files\mcc.h</file>
          <hash>43f48eb927b9917fb2edbf2812094857903b377bb5bd7ba437cc054dbdbc5fcd</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\device_config.h</file>
          <hash>557ce07fc5b249bfba08e8ab39cc5c23b7904c6da9872863085716b1d45bb9f4</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files\interrupt_manager.h</file>
-         <hash>aaaa410a4bfe60edaf655a619a78546d90c1ebd28df946e67416316a158f5512</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\tmr0.h</file>
@@ -5918,15 +5918,15 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.h</file>
-         <hash>381132e0597691016b54c2a780dd0c5e6173258a6778f1328120d06b05952b46</hash>
+         <hash>689b5a707d054e0e3fda7adea23f49855b0485a22a14a174197fd725375b2043</hash>
+      </entry>
+      <entry>
+         <file>mcc_generated_files\interrupt_manager.c</file>
+         <hash>51961ba9b181ec498c87f5091b4ceeba358b77cda7e5904a143446fa8c219172</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.c</file>
          <hash>2e78c704e2d563ee4a47d3fb313b713edd73b96e034125ef6a7454ba167fe8a9</hash>
-      </entry>
-      <entry>
-         <file>mcc_generated_files\interrupt_manager.c</file>
-         <hash>424588498b0607605196f08b0a8a11f1d04ca90ffd487e4e8678494160b34e90</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\tmr0.c</file>
@@ -5934,7 +5934,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
-         <hash>cebf2a3a01915253839cd148531dadd2223ddd7bcc0eb05d92b622ce9cecf583</hash>
+         <hash>affbef4e1860a77b4a991057eed154e5920dd24f70a89fd17311d6c0b9b63406</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>
