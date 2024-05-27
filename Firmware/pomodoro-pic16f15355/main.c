@@ -64,6 +64,7 @@ static void buzzStop(void);
 #define TICKSTOSECS(x) ((x)/(1000/MSPERTICK))
 
 static volatile uint32_t sysTick;
+static bool sleep;
 
 static uint8_t buttonIntegrator;
 static uint16_t buttonCount;
@@ -193,9 +194,6 @@ static void processIntegrator(void) {
         buttonIntegrator++;
     }
 }
-
-static bool sleep;
-
 
 static void buttonReleased(void) {
 
@@ -339,6 +337,8 @@ static void processButton(void) {
 
 static void processDisplay(void) {
      
+    if (sleep) return;
+    
     /* Depending on our current work/relax state reflect the values
      * on the 7 LEDs     
      */    
@@ -426,7 +426,9 @@ static void processDisplay(void) {
 }
 
 static void processWorkExpired(void) {
- 
+     
+    if (sleep) return;
+
     /* Our work time has expired move to work blink state
      */    
     if (ledState == STATEWORK) {        
@@ -437,7 +439,9 @@ static void processWorkExpired(void) {
 
 static void processRelaxExpired(void) {
 
-    /* Our relax time has expired move to relax blink state
+     if (sleep) return;
+
+     /* Our relax time has expired move to relax blink state
      */    
     if (ledState == STATERELAX) {
         buzzStart();
