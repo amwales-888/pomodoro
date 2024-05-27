@@ -22,7 +22,6 @@ Package-*.bash
 *.sym
 *.sdb
 *.traceinfo
-*.zip
 
 **/build/**
 **/debug/**
