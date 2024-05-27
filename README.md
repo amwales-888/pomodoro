@@ -8,7 +8,15 @@ Produce a Pomodoro Timer where you can set the working time and rest time
 
 The client proposed a set of jumper headers to configure timers along with a sketch of the hardware.
 
-Timers are hardcoded 
+
+<table>
+  <tr>
+    <td> <img src="images/pinheader.png" ></td>
+    <td> <img src="images/design.jpg" ></td>
+  </tr>
+</table>
+
+Timers value are hardcoded 
 
 Working time
 
@@ -71,16 +79,16 @@ Less than 85 mm x 50mm
 
 ## Proposal
 
- - Use a lowcost pic16lf15355 SOIC 28 MCU which can be powered from 1.8v-5v, running from internal oscillator and able to idle at very low current.
+ - Use a lowcost <a href="Firmware/pomodoro-pic16f15355/docs/PIC16F-LF-15354-55-Data-Sheet-DS40001853.pdf">pic16lf15355</a> SOIC 28 MCU which can be powered from 1.8v-5v, running from internal oscillator and able to idle at very low current.
  - Use 7 red/green bi-color, low power LEDs 
  - Use 2 AAA Batteries in series at 2v-3v to extend runtime and reduce end user cost over lithium CR2032 cell.
  - Use Microchip MPLAB-X, XC8 and Pickit5 for development.
  - 67mm x 40mm board area, battery holder mounted on the back.
 
-Board Top
 
-![Board Top](Hardware/pomodoro-pic16f15355/images/pomodoro-top.png?raw=true "Board Top")
-
-Board Bottom
-
-![Board Bottom](Hardware/pomodoro-pic16f15355/images/pomodoro-bot.png?raw=true "Board Bottom")
+<table>
+  <tr>
+    <td> <img src="Hardware/pomodoro-pic16f15355/images/pomodoro-top.png" ></td>
+    <td> <img src="Hardware/pomodoro-pic16f15355/images/pomodoro-bot.png" ></td>
+  </tr>
+</table>
