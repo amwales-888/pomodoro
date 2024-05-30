@@ -19382,81 +19382,6 @@ part number 2062-2P from STA</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="CUS10S30_H3F">
-<description>&lt;Schottky Diodes &amp; Rectifiers Single High-speed switching&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
-<packages>
-<package name="1SS357TPH3F">
-<description>&lt;b&gt;USC (1-1E1A)&lt;/b&gt;&lt;br&gt;
-</description>
-<smd name="1" x="0" y="-1.15" dx="0.9" dy="0.8" layer="1"/>
-<smd name="2" x="0" y="1.15" dx="0.9" dy="0.8" layer="1"/>
-<text x="0" y="-0.2" size="1.27" layer="25" align="center">&gt;NAME</text>
-<text x="0" y="-0.2" size="1.27" layer="27" align="center">&gt;VALUE</text>
-<wire x1="-0.625" y1="0.85" x2="0.625" y2="0.85" width="0.2" layer="51"/>
-<wire x1="0.625" y1="0.85" x2="0.625" y2="-0.85" width="0.2" layer="51"/>
-<wire x1="0.625" y1="-0.85" x2="-0.625" y2="-0.85" width="0.2" layer="51"/>
-<wire x1="-0.625" y1="-0.85" x2="-0.625" y2="0.85" width="0.2" layer="51"/>
-<wire x1="-1.625" y1="2.55" x2="1.625" y2="2.55" width="0.1" layer="51"/>
-<wire x1="1.625" y1="2.55" x2="1.625" y2="-2.95" width="0.1" layer="51"/>
-<wire x1="1.625" y1="-2.95" x2="-1.625" y2="-2.95" width="0.1" layer="51"/>
-<wire x1="-1.625" y1="-2.95" x2="-1.625" y2="2.55" width="0.1" layer="51"/>
-<wire x1="-0.625" y1="0.85" x2="-0.625" y2="-0.85" width="0.1" layer="21"/>
-<wire x1="0.625" y1="0.85" x2="0.625" y2="-0.85" width="0.1" layer="21"/>
-<wire x1="-0.1" y1="-1.9" x2="-0.1" y2="-1.9" width="0.1" layer="21"/>
-<wire x1="-0.1" y1="-1.9" x2="0" y2="-1.9" width="0.1" layer="21" curve="-180"/>
-<wire x1="0" y1="-1.9" x2="0" y2="-1.9" width="0.1" layer="21"/>
-<wire x1="0" y1="-1.9" x2="-0.1" y2="-1.9" width="0.1" layer="21" curve="-180"/>
-</package>
-</packages>
-<symbols>
-<symbol name="CUS10S30,H3F">
-<wire x1="7.62" y1="2.54" x2="7.62" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="7.62" y1="2.54" x2="8.636" y2="2.54" width="0.254" layer="94"/>
-<wire x1="8.636" y1="1.524" x2="8.636" y2="2.54" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-2.54" x2="6.604" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="6.604" y1="-1.524" x2="6.604" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="5.08" y1="0" x2="7.62" y2="0" width="0.254" layer="94"/>
-<wire x1="12.7" y1="0" x2="15.24" y2="0" width="0.254" layer="94"/>
-<text x="12.7" y="8.89" size="1.778" layer="95" align="center-left">&gt;NAME</text>
-<text x="12.7" y="6.35" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
-<pin name="K" x="2.54" y="0" visible="pad" length="short"/>
-<pin name="A" x="17.78" y="0" visible="pad" length="short" rot="R180"/>
-<polygon width="0.254" layer="94">
-<vertex x="7.62" y="0"/>
-<vertex x="12.7" y="2.54"/>
-<vertex x="12.7" y="-2.54"/>
-</polygon>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="CUS10S30,H3F" prefix="D">
-<description>&lt;b&gt;Schottky Diodes &amp; Rectifiers Single High-speed switching&lt;/b&gt;&lt;p&gt;
-Source: &lt;a href="http://toshiba.semicon-storage.com/info/docget.jsp?did=14077&amp;prodName=CUS10S30"&gt; Datasheet &lt;/a&gt;</description>
-<gates>
-<gate name="G$1" symbol="CUS10S30,H3F" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="1SS357TPH3F">
-<connects>
-<connect gate="G$1" pin="A" pad="2"/>
-<connect gate="G$1" pin="K" pad="1"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="DESCRIPTION" value="Schottky Diodes &amp; Rectifiers Single High-speed switching" constant="no"/>
-<attribute name="HEIGHT" value="1mm" constant="no"/>
-<attribute name="MANUFACTURER_NAME" value="Toshiba" constant="no"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="CUS10S30,H3F" constant="no"/>
-<attribute name="MOUSER_PART_NUMBER" value="757-CUS10S30H3F" constant="no"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Toshiba/CUS10S30H3F?qs=cW4DzVrAanO4Xm6ySrHr7g%3D%3D" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="APBD3224LSURKCGKC">
 <description>&lt;Standard LEDs - SMD 3.2x2.4MM LOW CU RED/GREEN SMD&lt;/b&gt;&lt;p&gt;
 &lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
@@ -19530,6 +19455,180 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 </deviceset>
 </devicesets>
 </library>
+<library name="IRLML2502TRPBF">
+<description>&lt;IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
+<packages>
+<package name="SOT95P237X112-3N">
+<description>&lt;b&gt;SOT-23-ren9&lt;/b&gt;&lt;br&gt;
+</description>
+<smd name="1" x="-1.05" y="0.95" dx="1.3" dy="0.6" layer="1"/>
+<smd name="2" x="-1.05" y="-0.95" dx="1.3" dy="0.6" layer="1"/>
+<smd name="3" x="1.05" y="0" dx="1.3" dy="0.6" layer="1"/>
+<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
+<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
+<wire x1="-1.95" y1="1.77" x2="1.95" y2="1.77" width="0.05" layer="51"/>
+<wire x1="1.95" y1="1.77" x2="1.95" y2="-1.77" width="0.05" layer="51"/>
+<wire x1="1.95" y1="-1.77" x2="-1.95" y2="-1.77" width="0.05" layer="51"/>
+<wire x1="-1.95" y1="-1.77" x2="-1.95" y2="1.77" width="0.05" layer="51"/>
+<wire x1="-0.65" y1="1.46" x2="0.65" y2="1.46" width="0.1" layer="51"/>
+<wire x1="0.65" y1="1.46" x2="0.65" y2="-1.46" width="0.1" layer="51"/>
+<wire x1="0.65" y1="-1.46" x2="-0.65" y2="-1.46" width="0.1" layer="51"/>
+<wire x1="-0.65" y1="-1.46" x2="-0.65" y2="1.46" width="0.1" layer="51"/>
+<wire x1="-0.65" y1="0.51" x2="0.3" y2="1.46" width="0.1" layer="51"/>
+<wire x1="-0.05" y1="1.46" x2="0.05" y2="1.46" width="0.2" layer="21"/>
+<wire x1="0.05" y1="1.46" x2="0.05" y2="-1.46" width="0.2" layer="21"/>
+<wire x1="0.05" y1="-1.46" x2="-0.05" y2="-1.46" width="0.2" layer="21"/>
+<wire x1="-0.05" y1="-1.46" x2="-0.05" y2="1.46" width="0.2" layer="21"/>
+<wire x1="-1.7" y1="1.5" x2="-0.4" y2="1.5" width="0.2" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="IRLML2502TRPBF">
+<wire x1="7.62" y1="2.54" x2="7.62" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="7.62" y2="7.62" width="0.254" layer="94"/>
+<wire x1="2.54" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="7.62" y1="2.54" x2="5.842" y2="2.54" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="5.842" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.842" y1="0" x2="7.62" y2="0" width="0.254" layer="94"/>
+<wire x1="5.842" y1="5.588" x2="5.842" y2="4.572" width="0.254" layer="94"/>
+<wire x1="5.842" y1="-0.508" x2="5.842" y2="0.508" width="0.254" layer="94"/>
+<wire x1="5.842" y1="2.032" x2="5.842" y2="3.048" width="0.254" layer="94"/>
+<circle x="6.35" y="2.54" radius="3.81" width="0.254" layer="94"/>
+<text x="11.43" y="3.81" size="1.778" layer="95" align="center-left">&gt;NAME</text>
+<text x="11.43" y="1.27" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
+<pin name="G" x="0" y="0" visible="pad" length="short"/>
+<pin name="D" x="7.62" y="10.16" visible="pad" length="short" rot="R270"/>
+<pin name="S" x="7.62" y="-5.08" visible="pad" length="short" rot="R90"/>
+<polygon width="0.254" layer="94">
+<vertex x="5.842" y="2.54"/>
+<vertex x="6.858" y="3.048"/>
+<vertex x="6.858" y="2.032"/>
+</polygon>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="IRLML2502TRPBF" prefix="Q">
+<description>&lt;b&gt;IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon&lt;/b&gt;&lt;p&gt;
+Source: &lt;a href=""&gt; Datasheet &lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="IRLML2502TRPBF" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT95P237X112-3N">
+<connects>
+<connect gate="G$1" pin="D" pad="3"/>
+<connect gate="G$1" pin="G" pad="1"/>
+<connect gate="G$1" pin="S" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DESCRIPTION" value="IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon" constant="no"/>
+<attribute name="HEIGHT" value="1.12mm" constant="no"/>
+<attribute name="MANUFACTURER_NAME" value="Infineon" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="IRLML2502TRPBF" constant="no"/>
+<attribute name="MOUSER_PART_NUMBER" value="942-IRLML2502TRPBF" constant="no"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Infineon-Technologies/IRLML2502TRPBF?qs=9%252BKlkBgLFf37zQw9UlZd%2FQ%3D%3D" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
+<library name="DMG2305UX-7">
+<description>&lt;MOSFET P-Ch 20V 5A Enhancement SOT23 Diodes Inc DMG2305UX-7 P-channel MOSFET Transistor, -3.3 A, -20 V, 3-Pin SOT-23&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
+<packages>
+<package name="SOT96P240X115-3N">
+<description>&lt;b&gt;DMG2305UX-7&lt;/b&gt;&lt;br&gt;
+</description>
+<smd name="1" x="-1.1" y="0.96" dx="1.15" dy="0.6" layer="1"/>
+<smd name="2" x="-1.1" y="-0.96" dx="1.15" dy="0.6" layer="1"/>
+<smd name="3" x="1.1" y="0" dx="1.15" dy="0.6" layer="1"/>
+<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
+<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
+<wire x1="-1.925" y1="1.75" x2="1.925" y2="1.75" width="0.05" layer="51"/>
+<wire x1="1.925" y1="1.75" x2="1.925" y2="-1.75" width="0.05" layer="51"/>
+<wire x1="1.925" y1="-1.75" x2="-1.925" y2="-1.75" width="0.05" layer="51"/>
+<wire x1="-1.925" y1="-1.75" x2="-1.925" y2="1.75" width="0.05" layer="51"/>
+<wire x1="-0.65" y1="1.45" x2="0.65" y2="1.45" width="0.1" layer="51"/>
+<wire x1="0.65" y1="1.45" x2="0.65" y2="-1.45" width="0.1" layer="51"/>
+<wire x1="0.65" y1="-1.45" x2="-0.65" y2="-1.45" width="0.1" layer="51"/>
+<wire x1="-0.65" y1="-1.45" x2="-0.65" y2="1.45" width="0.1" layer="51"/>
+<wire x1="-0.65" y1="0.49" x2="0.31" y2="1.45" width="0.1" layer="51"/>
+<wire x1="-0.175" y1="1.45" x2="0.175" y2="1.45" width="0.2" layer="21"/>
+<wire x1="0.175" y1="1.45" x2="0.175" y2="-1.45" width="0.2" layer="21"/>
+<wire x1="0.175" y1="-1.45" x2="-0.175" y2="-1.45" width="0.2" layer="21"/>
+<wire x1="-0.175" y1="-1.45" x2="-0.175" y2="1.45" width="0.2" layer="21"/>
+<wire x1="-1.675" y1="1.51" x2="-0.525" y2="1.51" width="0.2" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="DMG2305UX-7">
+<wire x1="7.62" y1="2.54" x2="7.62" y2="-2.54" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="7.62" y2="7.62" width="0.254" layer="94"/>
+<wire x1="2.54" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="5.08" y1="5.08" x2="5.08" y2="0" width="0.254" layer="94"/>
+<wire x1="7.62" y1="2.54" x2="5.842" y2="2.54" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="5.842" y2="5.08" width="0.254" layer="94"/>
+<wire x1="5.842" y1="0" x2="7.62" y2="0" width="0.254" layer="94"/>
+<wire x1="5.842" y1="5.588" x2="5.842" y2="4.572" width="0.254" layer="94"/>
+<wire x1="5.842" y1="-0.508" x2="5.842" y2="0.508" width="0.254" layer="94"/>
+<wire x1="5.842" y1="2.032" x2="5.842" y2="3.048" width="0.254" layer="94"/>
+<wire x1="8.128" y1="2.032" x2="9.144" y2="2.032" width="0.254" layer="94"/>
+<wire x1="8.636" y1="3.048" x2="8.636" y2="5.08" width="0.254" layer="94"/>
+<wire x1="7.62" y1="5.08" x2="8.636" y2="5.08" width="0.254" layer="94"/>
+<wire x1="8.636" y1="2.032" x2="8.636" y2="0" width="0.254" layer="94"/>
+<wire x1="7.62" y1="0" x2="8.636" y2="0" width="0.254" layer="94"/>
+<circle x="6.35" y="2.54" radius="3.81" width="0.254" layer="94"/>
+<text x="11.43" y="3.81" size="1.778" layer="95" align="center-left">&gt;NAME</text>
+<text x="11.43" y="1.27" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
+<pin name="G" x="0" y="0" visible="pad" length="short"/>
+<pin name="S" x="7.62" y="-5.08" visible="pad" length="short" rot="R90"/>
+<pin name="D" x="7.62" y="10.16" visible="pad" length="short" rot="R270"/>
+<polygon width="0.254" layer="94">
+<vertex x="7.62" y="2.54"/>
+<vertex x="6.604" y="3.048"/>
+<vertex x="6.604" y="2.032"/>
+</polygon>
+<polygon width="0.254" layer="94">
+<vertex x="8.636" y="2.032"/>
+<vertex x="8.128" y="3.048"/>
+<vertex x="9.144" y="3.048"/>
+</polygon>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="DMG2305UX-7" prefix="Q">
+<description>&lt;b&gt;MOSFET P-Ch 20V 5A Enhancement SOT23 Diodes Inc DMG2305UX-7 P-channel MOSFET Transistor, -3.3 A, -20 V, 3-Pin SOT-23&lt;/b&gt;&lt;p&gt;
+Source: &lt;a href="https://www.diodes.com//assets/Datasheets/DMG2305UX.pdf"&gt; Datasheet &lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="DMG2305UX-7" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SOT96P240X115-3N">
+<connects>
+<connect gate="G$1" pin="D" pad="3"/>
+<connect gate="G$1" pin="G" pad="1"/>
+<connect gate="G$1" pin="S" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DESCRIPTION" value="MOSFET P-Ch 20V 5A Enhancement SOT23 Diodes Inc DMG2305UX-7 P-channel MOSFET Transistor, -3.3 A, -20 V, 3-Pin SOT-23" constant="no"/>
+<attribute name="HEIGHT" value="1.15mm" constant="no"/>
+<attribute name="MANUFACTURER_NAME" value="Diodes Incorporated" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="DMG2305UX-7" constant="no"/>
+<attribute name="MOUSER_PART_NUMBER" value="621-DMG2305UX-7" constant="no"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Diodes-Incorporated/DMG2305UX-7?qs=L1DZKBg7t5F%2FNBHrjfxC%252Bg%3D%3D" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -19577,7 +19676,6 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <part name="ICSP" library="SparkFun-Connectors" deviceset="CONN_05" device=""/>
 <part name="U$2" library="buzzer" deviceset="BUZZER8X8" device=""/>
 <part name="GND10" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="D1" library="CUS10S30_H3F" deviceset="CUS10S30,H3F" device=""/>
 <part name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="CPOL-EU" device="E2.5-5" package3d_urn="urn:adsk.eagle:package:23344/1"/>
 <part name="GND11" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="LED1" library="APBD3224LSURKCGKC" deviceset="APBD3224LSURKCGKC" device=""/>
@@ -19588,6 +19686,9 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <part name="LED6" library="APBD3224LSURKCGKC" deviceset="APBD3224LSURKCGKC" device=""/>
 <part name="LED7" library="APBD3224LSURKCGKC" deviceset="APBD3224LSURKCGKC" device=""/>
 <part name="GND12" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="Q1" library="IRLML2502TRPBF" deviceset="IRLML2502TRPBF" device=""/>
+<part name="+3V6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
+<part name="Q2" library="DMG2305UX-7" deviceset="DMG2305UX-7" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -19696,8 +19797,8 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <instance part="GND8" gate="1" x="88.9" y="22.86" smashed="yes">
 <attribute name="VALUE" x="86.36" y="20.32" size="1.778" layer="96"/>
 </instance>
-<instance part="GND4" gate="1" x="165.1" y="-66.04" smashed="yes">
-<attribute name="VALUE" x="162.56" y="-68.58" size="1.778" layer="96"/>
+<instance part="GND4" gate="1" x="218.44" y="15.24" smashed="yes">
+<attribute name="VALUE" x="215.9" y="12.7" size="1.778" layer="96"/>
 </instance>
 <instance part="PWR" gate="G$1" x="-33.02" y="88.9" smashed="yes" rot="R180">
 <attribute name="NAME" x="-26.67" y="83.185" size="1.778" layer="95" rot="R180"/>
@@ -19712,7 +19813,7 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <instance part="ACTION" gate="G$1" x="-43.18" y="27.94" smashed="yes" rot="R90">
 <attribute name="NAME" x="-44.704" y="27.94" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
 </instance>
-<instance part="U$1" gate="G$1" x="190.5" y="60.96" smashed="yes"/>
+<instance part="U$1" gate="G$1" x="190.5" y="48.26" smashed="yes"/>
 <instance part="+3V5" gate="G$1" x="180.34" y="101.6" smashed="yes">
 <attribute name="VALUE" x="177.8" y="96.52" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -19720,20 +19821,16 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <attribute name="VALUE" x="-17.78" y="76.454" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="-17.78" y="94.488" size="1.778" layer="95" font="vector"/>
 </instance>
-<instance part="U$2" gate="G$1" x="177.8" y="38.1" smashed="yes" rot="R180"/>
-<instance part="GND10" gate="1" x="180.34" y="58.42" smashed="yes">
-<attribute name="VALUE" x="177.8" y="55.88" size="1.778" layer="96"/>
-</instance>
-<instance part="D1" gate="G$1" x="180.34" y="99.06" smashed="yes" rot="R270">
-<attribute name="NAME" x="189.23" y="86.36" size="1.778" layer="95" rot="R270" align="center-left"/>
-<attribute name="VALUE" x="186.69" y="86.36" size="1.778" layer="96" rot="R270" align="center-left"/>
+<instance part="U$2" gate="G$1" x="233.68" y="55.88" smashed="yes" rot="R180"/>
+<instance part="GND10" gate="1" x="180.34" y="45.72" smashed="yes">
+<attribute name="VALUE" x="177.8" y="43.18" size="1.778" layer="96"/>
 </instance>
 <instance part="C2" gate="G$1" x="198.12" y="91.44" smashed="yes">
 <attribute name="NAME" x="199.263" y="91.9226" size="1.778" layer="95"/>
 <attribute name="VALUE" x="199.263" y="86.8426" size="1.778" layer="96"/>
 </instance>
-<instance part="GND11" gate="1" x="198.12" y="58.42" smashed="yes">
-<attribute name="VALUE" x="195.58" y="55.88" size="1.778" layer="96"/>
+<instance part="GND11" gate="1" x="198.12" y="45.72" smashed="yes">
+<attribute name="VALUE" x="195.58" y="43.18" size="1.778" layer="96"/>
 </instance>
 <instance part="LED1" gate="G$1" x="137.16" y="7.62" smashed="yes" rot="R180">
 <attribute name="NAME" x="92.71" y="12.7" size="1.778" layer="95" rot="R180" align="center-left"/>
@@ -19758,6 +19855,17 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 </instance>
 <instance part="GND12" gate="1" x="144.78" y="-66.04" smashed="yes">
 <attribute name="VALUE" x="142.24" y="-68.58" size="1.778" layer="96"/>
+</instance>
+<instance part="Q1" gate="G$1" x="210.82" y="35.56" smashed="yes">
+<attribute name="NAME" x="222.25" y="39.37" size="1.778" layer="95" align="center-left"/>
+<attribute name="VALUE" x="222.25" y="36.83" size="1.778" layer="96" align="center-left"/>
+</instance>
+<instance part="+3V6" gate="G$1" x="223.52" y="101.6" smashed="yes">
+<attribute name="VALUE" x="220.98" y="96.52" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="Q2" gate="G$1" x="187.96" y="83.82" smashed="yes" rot="R180">
+<attribute name="NAME" x="176.53" y="80.01" size="1.778" layer="95" rot="R180" align="center-left"/>
+<attribute name="VALUE" x="176.53" y="82.55" size="1.778" layer="96" rot="R180" align="center-left"/>
 </instance>
 </instances>
 <busses>
@@ -19792,12 +19900,19 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <pinref part="+3V4" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
-<pinref part="D1" gate="G$1" pin="K"/>
-<pinref part="+3V5" gate="G$1" pin="+3V3"/>
-<wire x1="180.34" y1="96.52" x2="180.34" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="U$2" gate="G$1" pin="VDD"/>
+<wire x1="226.06" y1="53.34" x2="223.52" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="53.34" x2="223.52" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="+3V6" gate="G$1" pin="+3V3"/>
+</segment>
+<segment>
 <pinref part="C2" gate="G$1" pin="+"/>
 <wire x1="180.34" y1="96.52" x2="198.12" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="198.12" y1="96.52" x2="198.12" y2="93.98" width="0.1524" layer="91"/>
+<pinref part="+3V5" gate="G$1" pin="+3V3"/>
+<wire x1="180.34" y1="99.06" x2="180.34" y2="96.52" width="0.1524" layer="91"/>
+<pinref part="Q2" gate="G$1" pin="S"/>
+<wire x1="180.34" y1="96.52" x2="180.34" y2="88.9" width="0.1524" layer="91"/>
 <junction x="180.34" y="96.52"/>
 </segment>
 </net>
@@ -19876,12 +19991,6 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <pinref part="GND8" gate="1" pin="GND"/>
 </segment>
 <segment>
-<wire x1="165.1" y1="40.64" x2="165.1" y2="-63.5" width="0.1524" layer="91"/>
-<pinref part="GND4" gate="1" pin="GND"/>
-<pinref part="U$2" gate="G$1" pin="VSS"/>
-<wire x1="165.1" y1="40.64" x2="170.18" y2="40.64" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="PWR" gate="G$1" pin="2"/>
 <wire x1="-40.64" y1="86.36" x2="-43.18" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="-43.18" y1="86.36" x2="-43.18" y2="76.2" width="0.1524" layer="91"/>
@@ -19890,13 +19999,17 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <segment>
 <pinref part="U$1" gate="G$1" pin="NEG"/>
 <pinref part="GND10" gate="1" pin="GND"/>
-<wire x1="175.26" y1="68.58" x2="180.34" y2="68.58" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="68.58" x2="180.34" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="55.88" x2="180.34" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="55.88" x2="180.34" y2="48.26" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C2" gate="G$1" pin="-"/>
-<wire x1="198.12" y1="86.36" x2="198.12" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="198.12" y1="86.36" x2="198.12" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="GND11" gate="1" pin="GND"/>
+<pinref part="Q2" gate="G$1" pin="G"/>
+<wire x1="198.12" y1="83.82" x2="198.12" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="83.82" x2="198.12" y2="83.82" width="0.1524" layer="91"/>
+<junction x="198.12" y="83.82"/>
 </segment>
 <segment>
 <pinref part="LED1" gate="G$1" pin="CATHODE_GREEN"/>
@@ -19955,6 +20068,11 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <wire x1="137.16" y1="-53.34" x2="144.78" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="144.78" y="-53.34"/>
 <pinref part="GND12" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="GND4" gate="1" pin="GND"/>
+<pinref part="Q1" gate="G$1" pin="S"/>
+<wire x1="218.44" y1="17.78" x2="218.44" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -20163,19 +20281,12 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <wire x1="-30.48" y1="-53.34" x2="-12.7" y2="-53.34" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$26" class="0">
-<segment>
-<pinref part="IC1" gate="G$1" pin="RC7"/>
-<pinref part="U$2" gate="G$1" pin="VDD"/>
-<wire x1="60.96" y1="35.56" x2="170.18" y2="35.56" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$41" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="POS"/>
-<pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="175.26" y1="73.66" x2="180.34" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="73.66" x2="180.34" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="60.96" x2="180.34" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="60.96" x2="180.34" y2="73.66" width="0.1524" layer="91"/>
+<pinref part="Q2" gate="G$1" pin="D"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -20274,6 +20385,21 @@ Source: &lt;a href="https://www.kingbrightusa.com/images/catalog/SPEC/APBD3224LS
 <pinref part="R8" gate="G$1" pin="2"/>
 <pinref part="LED7" gate="G$1" pin="ANODE_GREEN"/>
 <wire x1="78.74" y1="-50.8" x2="88.9" y2="-50.8" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$26" class="0">
+<segment>
+<pinref part="IC1" gate="G$1" pin="RC7"/>
+<pinref part="Q1" gate="G$1" pin="G"/>
+<wire x1="60.96" y1="35.56" x2="210.82" y2="35.56" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$40" class="0">
+<segment>
+<pinref part="Q1" gate="G$1" pin="D"/>
+<wire x1="218.44" y1="45.72" x2="218.44" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="U$2" gate="G$1" pin="VSS"/>
+<wire x1="218.44" y1="58.42" x2="226.06" y2="58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
