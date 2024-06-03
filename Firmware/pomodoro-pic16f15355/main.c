@@ -228,7 +228,8 @@ static void buttonHeld(void) {
     /* Test to see if the button has been held down for 3 seconds.
      * If it has then we shutdown 
      */    
-    if (buttonCount > 20*3) {
+        
+    if (buttonCount > ((3 * 1000) / DEBOUNCE_DELAYMS)) {
         
         /* Turn off ALL LEDs */
         
@@ -345,28 +346,29 @@ static void processDisplay(void) {
     switch (ledState) {
         case STATEWORK: {
             
-            /* Port D is relax display */
+            /* Port C is relax display */
             LATC &= 0x80;
             
             int percentage = (int)((sysTick - processList[0].lastTick) * 100 / processList[0].periodTick);
             int count = (percentage - 1) / (100/7);
             int i;
             
-            for (i=0; i<count; i++) {
-                /* Port C is working display */
+            /* Port A is working display */
+            LATA ^= 0x01 << count;
+            
+            for (i=count+1; i<7; i++) {
                 LATA |= 0x1 << i;                
             }
-                        
-            LATA ^= 0x01 << i;
+            
             break;
         }
             
         case STATEWORKWAITINGON:
             
-            /* Port D is relax display */
+            /* Port C is relax display */
             LATC &= 0x80;
             
-            /* Port C is working display */
+            /* Port A is working display */
             LATA |= 0x7F; 
             
             ledState = STATEWORKWAITINGOFF;
@@ -374,10 +376,10 @@ static void processDisplay(void) {
             
         case STATEWORKWAITINGOFF:
             
-            /* Port D is relax display */
+            /* Port C is relax display */
             LATC &= 0x80;
 
-            /* Port C is working display */
+            /* Port A is working display */
             LATA &= 0x80;
 
             ledState = STATEWORKWAITINGON;
@@ -385,28 +387,29 @@ static void processDisplay(void) {
 
         case STATERELAX: {
  
-            /* Port C is working display */
+            /* Port A is working display */
             LATA &= 0x80;
             
             int percentage = (int)((sysTick - processList[0].lastTick) * 100 / processList[0].periodTick);
             int count = (percentage - 1) / (100/7);
             int i;
+
+            /* Port C is working display */
+            LATC ^= 0x01 << count;
             
-            for (i=0; i<count; i++) {
-                /* Port D is relax display */
-                LATC |= 0x1 << i;
+            for (i=count+1; i<7; i++) {
+                LATC |= 0x1 << i;                
             }
 
-            LATC ^= 0x01 << i;
             break;
         }
 
         case STATERELAXWAITINGON:
             
-            /* Port D is relax display */
+            /* Port C is relax display */
             LATC |= 0x7F;
             
-            /* Port C is working display */
+            /* Port A is working display */
             LATA &= 0x80;            
             
             ledState = STATERELAXWAITINGOFF;
@@ -414,10 +417,10 @@ static void processDisplay(void) {
 
         case STATERELAXWAITINGOFF:
             
-            /* Port D is relax display */
+            /* Port C is relax display */
             LATC &= 0x80;            
 
-            /* Port C is working display */
+            /* Port A is working display */
             LATA &= 0x80;            
             
             ledState = STATERELAXWAITINGON;
@@ -457,7 +460,7 @@ void main(void)
     // initialize the device
     SYSTEM_Initialize();
     
-    /* Wait for any button bouncing to settle after reset, we may have
+    /* Wait 1 second for any button bouncing to settle after reset, we may have
      * just been woken with a button press and need to filter it out
      */
     while (IO_BUTTON_GetValue() == 0) {
