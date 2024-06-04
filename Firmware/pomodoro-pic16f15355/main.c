@@ -352,8 +352,13 @@ static void processDisplay(void) {
             int percentage = (int)((sysTick - processList[0].lastTick) * 100 / processList[0].periodTick);
             int count = (percentage - 1) / (100/7);
             int i;
-            
+                        
             /* Port A is working display */
+
+            for (i=0; i<count; i++) {                
+                LATA &= ~(0x1 << i);                
+            }            
+            
             LATA ^= 0x01 << count;
             
             for (i=count+1; i<7; i++) {
@@ -394,7 +399,12 @@ static void processDisplay(void) {
             int count = (percentage - 1) / (100/7);
             int i;
 
-            /* Port C is working display */
+            /* Port C is relax display */
+            
+            for (i=0; i<count; i++) {                
+                LATC &= ~(0x1 << i);                
+            }            
+
             LATC ^= 0x01 << count;
             
             for (i=count+1; i<7; i++) {
