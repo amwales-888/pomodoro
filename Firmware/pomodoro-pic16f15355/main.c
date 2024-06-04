@@ -176,16 +176,12 @@ static void buzzStart(void) {
     
     /* PWM3POL active_hi; PWM3EN enabled; */
     PWM3CON = 0x80;   
-    
-//    IO_BUZZER_SetHigh();
 }
 
 static void buzzStop(void) {
     
     /* PWM3POL active_hi; PWM3EN disabled; */
     PWM3CON = 0x00;   
-
-//    IO_BUZZER_SetLow();
 }
 
 static void processIntegrator(void) {
@@ -376,6 +372,8 @@ static void processDisplay(void) {
             
         case STATEWORKWAITINGON:
             
+            buzzStart();
+
             /* Port C is relax display */
             LATC &= 0x80;
             
@@ -387,6 +385,8 @@ static void processDisplay(void) {
             
         case STATEWORKWAITINGOFF:
             
+            buzzStop();
+
             /* Port C is relax display */
             LATC &= 0x80;
 
@@ -422,6 +422,8 @@ static void processDisplay(void) {
 
         case STATERELAXWAITINGON:
             
+            buzzStart();
+
             /* Port C is relax display */
             LATC |= 0x7F;
             
@@ -432,6 +434,8 @@ static void processDisplay(void) {
             break;
 
         case STATERELAXWAITINGOFF:
+
+            buzzStop();
             
             /* Port C is relax display */
             LATC &= 0x80;            
@@ -451,7 +455,6 @@ static void processWorkExpired(void) {
     /* Our work time has expired move to work blink state
      */    
     if (ledState == STATEWORK) {        
-        buzzStart();
         ledState = STATEWORKWAITINGON;
     }
 }
@@ -463,7 +466,6 @@ static void processRelaxExpired(void) {
      /* Our relax time has expired move to relax blink state
      */    
     if (ledState == STATERELAX) {
-        buzzStart();
         ledState = STATERELAXWAITINGON;
     }
 }
