@@ -126,6 +126,11 @@ void PIN_MANAGER_Initialize(void)
     // Enable IOCI interrupt 
     PIE0bits.IOCIE = 1; 
     
+    #if (__XC8_VERSION <= 1380)
+    #define ADACTPPSbits ADCACTPPSbits
+    #endif
+	
+    RC7PPS = 0x0B;   //RC7->PWM3:PWM3OUT;    
 }
   
 void PIN_MANAGER_IOC(void)

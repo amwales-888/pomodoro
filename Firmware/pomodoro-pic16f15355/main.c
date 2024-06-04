@@ -174,12 +174,18 @@ static void nullFunc(void){
 
 static void buzzStart(void) {
     
-    IO_BUZZER_SetHigh();
+    /* PWM3POL active_hi; PWM3EN enabled; */
+    PWM3CON = 0x80;   
+    
+//    IO_BUZZER_SetHigh();
 }
 
 static void buzzStop(void) {
     
-    IO_BUZZER_SetLow();
+    /* PWM3POL active_hi; PWM3EN disabled; */
+    PWM3CON = 0x00;   
+
+//    IO_BUZZER_SetLow();
 }
 
 static void processIntegrator(void) {
