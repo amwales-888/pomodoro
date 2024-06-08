@@ -760,6 +760,8 @@
         <property key="periphComp5.gte" value="gt"/>
         <property key="periphComp6.gte" value="gt"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/Angelo/Projects/pomodoro-pic16f15355/Firmware/pomodoro-pic16f15355/debug/production/pic16f15355_ptg"/>
         <property key="programmerToGoImageName" value="pic16f15355_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
@@ -1967,6 +1969,8 @@
         <property key="periphComp5.gte" value="gt"/>
         <property key="periphComp6.gte" value="gt"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/Angelo/Projects/pomodoro-pic16f15355/Firmware/pomodoro-pic16f15355/debug/debug/pic16f15355_ptg"/>
         <property key="programmerToGoImageName" value="pic16f15355_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>

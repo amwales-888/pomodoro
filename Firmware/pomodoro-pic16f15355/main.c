@@ -45,6 +45,7 @@
 
 //#define BLINKTEST 1
 
+#define ARRAYSIZE(arr) (sizeof(arr) / sizeof(arr[0]))        
 
 static void timerInterrupt(void);
 static void processButton(void);
@@ -58,6 +59,10 @@ static void buttonHeld(void);
 static void buttonPressed(void);
 static void buzzStart(void);
 static void buzzStop(void);
+static void playMelody(void);
+static void startMelody(void);
+static void stopMelody(void);
+
 
 #define MSPERTICK      10
 #define MSTOTICKS(x)   ((x)/MSPERTICK)
@@ -110,6 +115,7 @@ static struct process_s {
     { (uint32_t)MSTOTICKS(DEBOUNCE_DELAYMS),              0, processButton     },
     { (uint32_t)MSTOTICKS(1000),                          0, processDisplay    },
     { (uint32_t)MSTOTICKS(DEBOUNCE_INTEGRATOR_DELAYMS),   0, processIntegrator },    
+    { (uint32_t)MSTOTICKS(200),                          0, playMelody        },
 #endif
 
 };
@@ -173,6 +179,8 @@ static void nullFunc(void){
 }
 
 static void buzzStart(void) {
+
+    return;
     
     /* PWM3POL active_hi; PWM3EN enabled; */
     PWM3CON = 0x80;   
@@ -180,6 +188,8 @@ static void buzzStart(void) {
 
 static void buzzStop(void) {
     
+    return;
+
     /* PWM3POL active_hi; PWM3EN disabled; */
     PWM3CON = 0x00;   
 }
@@ -239,6 +249,17 @@ static void buttonHeld(void) {
         LATC &= 0x80;        
         
         buzzStop();
+
+        /* Stop melody */
+
+        /* Disable PWM */
+        PWM3CONbits.PWM3EN = 0;
+
+        /* Stop Timer */
+        TMR2_Stop();
+
+
+
         
         /* Signal that we want to enter sleep */
         
@@ -470,6 +491,122 @@ static void processRelaxExpired(void) {
     }
 }
 
+/* We have set TIMER2 so it covers the range 
+ * 4us to 1024us with a 4us resolution ( remember it is
+ * only an 8bit timer )
+ *
+ * To convert Freq to TIMER2 period with 4us resolution
+ * we use the formulae
+ * 
+ * (1/FREQ * 1000000)/4 = period
+ * 
+ * We can simplify to 
+ * 
+ * period = (1000000/FREQ)/4
+ * period = 250000/FREQ
+ */
+
+#define NOTE_C6  (uint8_t)(250000/1047) /* 1047 Hz */
+#define NOTE_CS6 (uint8_t)(250000/1108) /* 1108 Hz */
+#define NOTE_D6  (uint8_t)(250000/1174) /* 1174 Hz */
+#define NOTE_DS6 (uint8_t)(250000/1244) /* 1244 Hz */
+#define NOTE_E6  (uint8_t)(250000/1318) /* 1318 Hz */
+#define NOTE_F6  (uint8_t)(250000/1396) /* 1396 Hz */
+#define NOTE_FS6 (uint8_t)(250000/1479) /* 1479 Hz */
+#define NOTE_G6  (uint8_t)(250000/1567) /* 1567 Hz */
+#define NOTE_GS6 (uint8_t)(250000/1661) /* 1661 Hz */
+#define NOTE_A6  (uint8_t)(250000/1760) /* 1760 Hz */
+#define NOTE_AS6 (uint8_t)(250000/1864) /* 1864 Hz */
+#define NOTE_B6  (uint8_t)(250000/1975) /* 1975 Hz */
+#define NOTE_RST 0x00
+
+static uint8_t melody[] = {  
+
+    NOTE_C6,NOTE_C6,NOTE_G6,NOTE_G6,
+    NOTE_A6,NOTE_A6,NOTE_G6,NOTE_RST,
+    NOTE_F6,NOTE_F6,NOTE_E6,NOTE_E6,
+    NOTE_D6,NOTE_D6,NOTE_C6,NOTE_RST,
+    NOTE_G6,NOTE_G6,NOTE_F6,NOTE_F6,
+    NOTE_E6,NOTE_E6,NOTE_D6,NOTE_RST,
+    NOTE_G6,NOTE_G6,NOTE_F6,NOTE_F6,
+    NOTE_E6,NOTE_E6,NOTE_D6,NOTE_RST,
+    NOTE_C6,NOTE_C6,NOTE_G6,NOTE_G6,
+    NOTE_A6,NOTE_A6,NOTE_G6,NOTE_RST,
+    NOTE_F6,NOTE_F6,NOTE_E6,NOTE_E6,
+    NOTE_D6,NOTE_D6,NOTE_C6,NOTE_RST,
+};
+
+static uint8_t noteIdx;
+static uint8_t noteTgl;
+
+static enum melodyState_e {
+    
+    MELODYIDLE=0,
+    MELODYSTART,
+    MELODYPLAYING,
+    MELODYSTOP,
+
+} melodyState;
+
+
+static void startMelody(void) {
+    
+    melodyState = MELODYSTART;
+}
+
+static void stopMelody(void) {
+    
+    melodyState = MELODYSTOP;
+}
+
+static void playMelody(void) {
+
+    switch (melodyState) {
+
+        case MELODYIDLE:
+            break;
+        
+        case MELODYSTART:
+
+            /* Enable PWM */
+            PWM3CONbits.PWM3EN = 1;
+            
+            /* Start Timer */
+            TMR2_Start();
+            
+            noteIdx     = 0;
+            melodyState = MELODYPLAYING;
+            
+        case MELODYPLAYING:
+            
+            noteTgl ^= 1;
+            if (noteTgl == 0) {
+                TMR2_LoadPeriodRegister(0);
+
+            } else {
+                TMR2_LoadPeriodRegister(melody[noteIdx]);
+
+                noteIdx++;
+                if (noteIdx == ARRAYSIZE(melody)) {
+                    noteIdx = 0;
+                }
+            }    
+            
+            break;
+            
+        case MELODYSTOP:
+            
+            /* Disable PWM */
+            PWM3CONbits.PWM3EN = 0;
+            
+            /* Stop Timer */
+            TMR2_Stop();
+            
+            melodyState = MELODYIDLE;
+            break;
+    }
+}
+
 /*
                          Main application
  */
@@ -511,10 +648,11 @@ void main(void)
     ledState = STATERELAXWAITINGON;
 #endif
     
+    
+    startMelody();
+    
     /* Main loop scheduling processes */
     while (1) {
-                
-#define ARRAYSIZE(arr) (sizeof(arr) / sizeof(arr[0]))        
                 
         /* Step through each process and test if period has expired and
          * if has, dispatch the function and adjust it last run time
@@ -529,6 +667,7 @@ void main(void)
         }        
     }    
 }
+
 /**
  End of File
 */
