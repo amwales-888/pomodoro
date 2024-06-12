@@ -115,7 +115,7 @@ static struct process_s {
     { (uint32_t)MSTOTICKS(DEBOUNCE_DELAYMS),              0, processButton     },
     { (uint32_t)MSTOTICKS(1000),                          0, processDisplay    },
     { (uint32_t)MSTOTICKS(DEBOUNCE_INTEGRATOR_DELAYMS),   0, processIntegrator },    
-    { (uint32_t)MSTOTICKS(200),                          0, playMelody        },
+    { (uint32_t)MSTOTICKS(50),                            0, playMelody        },
 #endif
 
 };
@@ -280,6 +280,7 @@ static void buttonPressed(void) {
         case STATEWORKWAITINGOFF:
 
             buzzStop();
+            stopMelody();
                         
             processList[0].periodTick = relaxTimeTicks;
             processList[0].lastTick   = sysTick;
@@ -294,6 +295,7 @@ static void buttonPressed(void) {
         case STATERELAXWAITINGOFF:
 
             buzzStop();
+            stopMelody();
 
             processList[0].periodTick = workTimeTicks;
             processList[0].lastTick   = sysTick;
@@ -473,9 +475,12 @@ static void processWorkExpired(void) {
      
     if (sleep) return;
 
-    /* Our work time has expired move to work blink state
-     */    
-    if (ledState == STATEWORK) {        
+    if (ledState == STATEWORK) {  
+                
+        /* Our work time has expired move to work, start melody and
+         * enter blink state
+         */    
+        startMelody();        
         ledState = STATEWORKWAITINGON;
     }
 }
@@ -484,9 +489,12 @@ static void processRelaxExpired(void) {
 
      if (sleep) return;
 
-     /* Our relax time has expired move to relax blink state
+     /* Our relax time has expired move to relax, start melody and
+      * enter blink state
      */    
     if (ledState == STATERELAX) {
+
+        startMelody();
         ledState = STATERELAXWAITINGON;
     }
 }
@@ -504,6 +512,14 @@ static void processRelaxExpired(void) {
  * 
  * period = (1000000/FREQ)/4
  * period = 250000/FREQ
+ * 
+ * Q. Why not use a 16bit timer?
+ * A. We are restricted to TMR2 for use with PWM3 and it is
+ *    an 8bit timer.
+ * 
+ * Q. Where are all the other octaves
+ * A. We require another timebase and I got tired of typing,
+ *    these notes seem sufficient for this use case.
  */
 
 #define NOTE_C6  (uint8_t)(250000/1047) /* 1047 Hz */
@@ -518,26 +534,58 @@ static void processRelaxExpired(void) {
 #define NOTE_A6  (uint8_t)(250000/1760) /* 1760 Hz */
 #define NOTE_AS6 (uint8_t)(250000/1864) /* 1864 Hz */
 #define NOTE_B6  (uint8_t)(250000/1975) /* 1975 Hz */
+#define NOTE_C7  (uint8_t)(250000/2093) /* 2093 Hz */
+#define NOTE_CS7 (uint8_t)(250000/2217) /* 2217 Hz */
+#define NOTE_D7  (uint8_t)(250000/2349) /* 2349 Hz */
+#define NOTE_DS7 (uint8_t)(250000/2489) /* 2489 Hz */
+#define NOTE_E7  (uint8_t)(250000/2637) /* 2637 Hz */
+#define NOTE_F7  (uint8_t)(250000/2794) /* 2794 Hz */
+#define NOTE_FS7 (uint8_t)(250000/2960) /* 2960 Hz */
+#define NOTE_G7  (uint8_t)(250000/3136) /* 3136 Hz */
+#define NOTE_GS7 (uint8_t)(250000/3322) /* 3322 Hz */
+#define NOTE_A7  (uint8_t)(250000/3520) /* 3520 Hz */
+#define NOTE_AS7 (uint8_t)(250000/3729) /* 3729 Hz */
+#define NOTE_B7  (uint8_t)(250000/3951) /* 3951 Hz */
+#define NOTE_C8  (uint8_t)(250000/4186) /* 4186 Hz */
+#define NOTE_CS8 (uint8_t)(250000/4435) /* 4435 Hz */
+#define NOTE_D8  (uint8_t)(250000/4699) /* 4699 Hz */
+#define NOTE_DS8 (uint8_t)(250000/4978) /* 4978 Hz */
+
 #define NOTE_RST 0x00
 
-static uint8_t melody[] = {  
+static const uint8_t melody[] = {  
 
     NOTE_C6,NOTE_C6,NOTE_G6,NOTE_G6,
-    NOTE_A6,NOTE_A6,NOTE_G6,NOTE_RST,
+    NOTE_A6,NOTE_A6,NOTE_G6,
     NOTE_F6,NOTE_F6,NOTE_E6,NOTE_E6,
-    NOTE_D6,NOTE_D6,NOTE_C6,NOTE_RST,
+    NOTE_D6,NOTE_D6,NOTE_C6,
     NOTE_G6,NOTE_G6,NOTE_F6,NOTE_F6,
-    NOTE_E6,NOTE_E6,NOTE_D6,NOTE_RST,
+    NOTE_E6,NOTE_E6,NOTE_D6,
     NOTE_G6,NOTE_G6,NOTE_F6,NOTE_F6,
-    NOTE_E6,NOTE_E6,NOTE_D6,NOTE_RST,
+    NOTE_E6,NOTE_E6,NOTE_D6,
     NOTE_C6,NOTE_C6,NOTE_G6,NOTE_G6,
-    NOTE_A6,NOTE_A6,NOTE_G6,NOTE_RST,
+    NOTE_A6,NOTE_A6,NOTE_G6,
     NOTE_F6,NOTE_F6,NOTE_E6,NOTE_E6,
-    NOTE_D6,NOTE_D6,NOTE_C6,NOTE_RST,
+    NOTE_D6,NOTE_D6,NOTE_C6,
+};
+
+static const uint32_t durationTick[] = {
+    
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(400),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(400),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(400),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(400),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(400),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(150),
+    MSTOTICKS(150),MSTOTICKS(150),MSTOTICKS(400),
 };
 
 static uint8_t noteIdx;
-static uint8_t noteTgl;
 
 static enum melodyState_e {
     
@@ -549,6 +597,14 @@ static enum melodyState_e {
 } melodyState;
 
 
+static enum noteState_e {
+    
+    NOTESTART=0,
+    NOTEPLAY,
+    NOTEREST,
+
+} noteState;
+
 static void startMelody(void) {
     
     melodyState = MELODYSTART;
@@ -559,8 +615,13 @@ static void stopMelody(void) {
     melodyState = MELODYSTOP;
 }
 
+static uint32_t noteStartTick;
+static uint32_t noteDurationTick;
+
 static void playMelody(void) {
 
+    if (sleep) return;
+    
     switch (melodyState) {
 
         case MELODYIDLE:
@@ -574,26 +635,58 @@ static void playMelody(void) {
             /* Start Timer */
             TMR2_Start();
             
-            noteIdx     = 0;
-            melodyState = MELODYPLAYING;
+            noteIdx       = 0;
+            melodyState   = MELODYPLAYING;
+            noteState     = NOTESTART;
             
         case MELODYPLAYING:
-            
-            noteTgl ^= 1;
-            if (noteTgl == 0) {
-                TMR2_LoadPeriodRegister(0);
+                        
+            switch (noteState) {
+                
+                case NOTESTART:
 
-            } else {
-                TMR2_LoadPeriodRegister(melody[noteIdx]);
+                    noteStartTick = sysTick;
+                    noteDurationTick = durationTick[noteIdx];
 
-                noteIdx++;
-                if (noteIdx == ARRAYSIZE(melody)) {
-                    noteIdx = 0;
-                }
-            }    
-            
+                    TMR2_LoadPeriodRegister(melody[noteIdx]);
+
+                    noteState = NOTEPLAY;                    
+                    
+                case NOTEPLAY:
+                                        
+                    if ((uint32_t)(sysTick - noteStartTick) >= noteDurationTick) {
+
+                        noteStartTick = sysTick;
+                        noteDurationTick = durationTick[noteIdx];
+                        
+                        TMR2_LoadPeriodRegister(0);
+                                                
+                        noteState = NOTEREST;
+                    }
+                    break;
+                    
+                case NOTEREST:
+                    
+                    /* After each note we rest so that each note is distinct
+                     * from one another.
+                     */                    
+                    
+                    if ((uint32_t)(sysTick - noteStartTick) >= noteDurationTick) {
+                        
+                        noteIdx++;
+                        if (noteIdx == ARRAYSIZE(durationTick)) {
+                            noteIdx = 0;
+#ifndef MELODYONLOOP
+                            melodyState = MELODYSTOP;
+#endif                            
+                        }
+                        
+                        noteState = NOTESTART;
+                    }
+                    break;
+            }
             break;
-            
+                        
         case MELODYSTOP:
             
             /* Disable PWM */
@@ -646,6 +739,9 @@ void main(void)
     processList[0].func       = processRelaxExpired;
     
     ledState = STATERELAXWAITINGON;
+    
+    startMelody();
+    
 #endif
     
     
