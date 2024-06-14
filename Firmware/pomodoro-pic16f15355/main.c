@@ -142,35 +142,40 @@ static void timerInterrupt(void) {
 }
 
 void setupTimer(void) {
-   
-    /* Read Work Time */
 
+    /* defaults */
+    
+    workTimeTicks  = MSTOTICKS((uint32_t)30*60*1000);  /* 30 mins */
+    relaxTimeTicks = MSTOTICKS((uint32_t)0*60*1000);   /*  0 mins */
+        
+    /* Read Work Time */
+    
     if (IO_WORK0_GetValue() == 0) {
-        workTimeTicks = MSTOTICKS((uint32_t)15*60*1000);
+        workTimeTicks = MSTOTICKS((uint32_t)15*60*1000);  /* 15 mins */
     }
     else if (IO_WORK1_GetValue() == 0) {
-        workTimeTicks = MSTOTICKS((uint32_t)30*60*1000);        
+        workTimeTicks = MSTOTICKS((uint32_t)30*60*1000);  /* 30 mins */
     }
     else if (IO_WORK2_GetValue() == 0) {
-        workTimeTicks = MSTOTICKS((uint32_t)45*60*1000);
+        workTimeTicks = MSTOTICKS((uint32_t)45*60*1000);  /* 45 mins */
     }
     else if (IO_WORK3_GetValue() == 0) {
-        workTimeTicks = MSTOTICKS((uint32_t)60*60*1000);
+        workTimeTicks = MSTOTICKS((uint32_t)60*60*1000);  /* 60 mins */
     }
         
     /* Read Relax Time*/
 
     if (IO_RELAX0_GetValue() == 0) {   
-        relaxTimeTicks = MSTOTICKS((uint32_t)0*60*1000);
+        relaxTimeTicks = MSTOTICKS((uint32_t)0*60*1000);  /*  0 mins */
     }
     else if (IO_RELAX1_GetValue() == 0) {
-        relaxTimeTicks = MSTOTICKS((uint32_t)5*60*1000);
+        relaxTimeTicks = MSTOTICKS((uint32_t)5*60*1000);  /*  5 mins */
     }
     else if (IO_RELAX2_GetValue() == 0) {
-        relaxTimeTicks = MSTOTICKS((uint32_t)10*60*1000);
+        relaxTimeTicks = MSTOTICKS((uint32_t)10*60*1000); /* 10 mins */
     }
     else if (IO_RELAX3_GetValue() == 0) {
-        relaxTimeTicks = MSTOTICKS((uint32_t)15*60*1000);
+        relaxTimeTicks = MSTOTICKS((uint32_t)15*60*1000); /* 15 mins */
     }
 }
 
