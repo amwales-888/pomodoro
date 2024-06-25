@@ -88,7 +88,12 @@ Less than 85 mm x 50mm
 
 <table>
   <tr>
-    <td> <img src="Hardware/pomodoro-pic16f15355/images/pomodoro-top.png" ></td>
-    <td> <img src="Hardware/pomodoro-pic16f15355/images/pomodoro-bot.png" ></td>
+    <td> <img src="Hardware/pomodoro-pic16f15355/images/pomodoro-top.png"></td>
+    <td> <img src="Hardware/pomodoro-pic16f15355/images/pomodoro-bot.png"></td>
   </tr>
 </table>
+
+## Completed Project 
+
+Working, partially populated board <img src="images/PXL_20240615_140358338.jpg">
+
