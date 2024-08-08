@@ -111,6 +111,12 @@ static void waitMs(uint32_t msDelay);
 static int getButtonValue(void);
 
 
+static void PWMStart(uint16_t prescaler, uint16_t autoreload, uint16_t compare);
+static void PWMStop(void);
+static void TMIStart(uint16_t prescaler, uint16_t autoreload);
+static void TMIStop(void);
+
+
 
 
 
@@ -789,39 +795,39 @@ static void processRelaxExpired(void) {
  * A. We require another timebase and I got tired of typing,
  *    these notes seem sufficient for this use case.
  */
+#define NOTE_C6  (uint16_t)(24000000U/1047) /* 1047 Hz */
+#define NOTE_CS6 (uint16_t)(24000000U/1108) /* 1108 Hz */
+#define NOTE_D6  (uint16_t)(24000000U/1174) /* 1174 Hz */
+#define NOTE_DS6 (uint16_t)(24000000U/1244) /* 1244 Hz */
+#define NOTE_E6  (uint16_t)(24000000U/1318) /* 1318 Hz */
+#define NOTE_F6  (uint16_t)(24000000U/1396) /* 1396 Hz */
+#define NOTE_FS6 (uint16_t)(24000000U/1479) /* 1479 Hz */
+#define NOTE_G6  (uint16_t)(24000000U/1567) /* 1567 Hz */
+#define NOTE_GS6 (uint16_t)(24000000U/1661) /* 1661 Hz */
+#define NOTE_A6  (uint16_t)(24000000U/1760) /* 1760 Hz */
+#define NOTE_AS6 (uint16_t)(24000000U/1864) /* 1864 Hz */
+#define NOTE_B6  (uint16_t)(24000000U/1975) /* 1975 Hz */
+#define NOTE_C7  (uint16_t)(24000000U/2093) /* 2093 Hz */
+#define NOTE_CS7 (uint16_t)(24000000U/2217) /* 2217 Hz */
+#define NOTE_D7  (uint16_t)(24000000U/2349) /* 2349 Hz */
+#define NOTE_DS7 (uint16_t)(24000000U/2489) /* 2489 Hz */
+#define NOTE_E7  (uint16_t)(24000000U/2637) /* 2637 Hz */
+#define NOTE_F7  (uint16_t)(24000000U/2794) /* 2794 Hz */
+#define NOTE_FS7 (uint16_t)(24000000U/2960) /* 2960 Hz */
+#define NOTE_G7  (uint16_t)(24000000U/3136) /* 3136 Hz */
+#define NOTE_GS7 (uint16_t)(24000000U/3322) /* 3322 Hz */
+#define NOTE_A7  (uint16_t)(24000000U/3520) /* 3520 Hz */
+#define NOTE_AS7 (uint16_t)(24000000U/3729) /* 3729 Hz */
+#define NOTE_B7  (uint16_t)(24000000U/3951) /* 3951 Hz */
+#define NOTE_C8  (uint16_t)(24000000U/4186) /* 4186 Hz */
+#define NOTE_CS8 (uint16_t)(24000000U/4435) /* 4435 Hz */
+#define NOTE_D8  (uint16_t)(24000000U/4699) /* 4699 Hz */
+#define NOTE_DS8 (uint16_t)(24000000U/4978) /* 4978 Hz */
 
-#define NOTE_C6  (uint8_t)(250000/1047) /* 1047 Hz */
-#define NOTE_CS6 (uint8_t)(250000/1108) /* 1108 Hz */
-#define NOTE_D6  (uint8_t)(250000/1174) /* 1174 Hz */
-#define NOTE_DS6 (uint8_t)(250000/1244) /* 1244 Hz */
-#define NOTE_E6  (uint8_t)(250000/1318) /* 1318 Hz */
-#define NOTE_F6  (uint8_t)(250000/1396) /* 1396 Hz */
-#define NOTE_FS6 (uint8_t)(250000/1479) /* 1479 Hz */
-#define NOTE_G6  (uint8_t)(250000/1567) /* 1567 Hz */
-#define NOTE_GS6 (uint8_t)(250000/1661) /* 1661 Hz */
-#define NOTE_A6  (uint8_t)(250000/1760) /* 1760 Hz */
-#define NOTE_AS6 (uint8_t)(250000/1864) /* 1864 Hz */
-#define NOTE_B6  (uint8_t)(250000/1975) /* 1975 Hz */
-#define NOTE_C7  (uint8_t)(250000/2093) /* 2093 Hz */
-#define NOTE_CS7 (uint8_t)(250000/2217) /* 2217 Hz */
-#define NOTE_D7  (uint8_t)(250000/2349) /* 2349 Hz */
-#define NOTE_DS7 (uint8_t)(250000/2489) /* 2489 Hz */
-#define NOTE_E7  (uint8_t)(250000/2637) /* 2637 Hz */
-#define NOTE_F7  (uint8_t)(250000/2794) /* 2794 Hz */
-#define NOTE_FS7 (uint8_t)(250000/2960) /* 2960 Hz */
-#define NOTE_G7  (uint8_t)(250000/3136) /* 3136 Hz */
-#define NOTE_GS7 (uint8_t)(250000/3322) /* 3322 Hz */
-#define NOTE_A7  (uint8_t)(250000/3520) /* 3520 Hz */
-#define NOTE_AS7 (uint8_t)(250000/3729) /* 3729 Hz */
-#define NOTE_B7  (uint8_t)(250000/3951) /* 3951 Hz */
-#define NOTE_C8  (uint8_t)(250000/4186) /* 4186 Hz */
-#define NOTE_CS8 (uint8_t)(250000/4435) /* 4435 Hz */
-#define NOTE_D8  (uint8_t)(250000/4699) /* 4699 Hz */
-#define NOTE_DS8 (uint8_t)(250000/4978) /* 4978 Hz */
 
 #define NOTE_RST 0x00
 
-static const uint8_t melody[] = {  
+static const uint16_t melody[] = {  
 
     NOTE_C6,NOTE_C6,NOTE_G6,NOTE_G6,
     NOTE_A6,NOTE_A6,NOTE_G6,
@@ -889,47 +895,47 @@ static uint32_t noteDurationTick;
 static void playMelody(void) {
 //TODO
     if (sleep) return;
-    #if 0
+    #if 1
     switch (melodyState) {
 
         case MELODYIDLE:
             break;
         
         case MELODYSTART:
-
-            /* Enable PWM */
-            PWM3CONbits.PWM3EN = 1;
-            
-            /* Start Timer */
-            TMR2_Start();
             
             noteIdx       = 0;
             melodyState   = MELODYPLAYING;
             noteState     = NOTESTART;
-            
+								
         case MELODYPLAYING:
                         
             switch (noteState) {
                 
                 case NOTESTART:
 
-                    noteStartTick = sysTick;
+                    noteStartTick = systickCnt;
                     noteDurationTick = durationTick[noteIdx];
 
-                    TMR2_LoadPeriodRegister(melody[noteIdx]);
+										/* Play note */																					
+										LL_TIM_SetPrescaler(TIM1, 1);
+										LL_TIM_SetAutoReload(TIM1, melody[noteIdx]);
+										LL_TIM_OC_SetCompareCH1(TIM1, melody[noteIdx]/2);
 
                     noteState = NOTEPLAY;                    
                     
                 case NOTEPLAY:
                                         
-                    if ((uint32_t)(sysTick - noteStartTick) >= noteDurationTick) {
+                    if ((uint32_t)(systickCnt - noteStartTick) >= noteDurationTick) {
 
-                        noteStartTick = sysTick;
+                        noteStartTick = systickCnt;
                         noteDurationTick = durationTick[noteIdx];
                         
-                        TMR2_LoadPeriodRegister(0);
-                                                
                         noteState = NOTEREST;
+
+												/* Stop note */
+												LL_TIM_SetPrescaler(TIM1, 1);
+												LL_TIM_SetAutoReload(TIM1, 1);
+												LL_TIM_OC_SetCompareCH1(TIM1, 1);
                     }
                     break;
                     
@@ -939,7 +945,7 @@ static void playMelody(void) {
                      * from one another.
                      */                    
                     
-                    if ((uint32_t)(sysTick - noteStartTick) >= noteDurationTick) {
+                    if ((uint32_t)(systickCnt - noteStartTick) >= noteDurationTick) {
                         
                         noteIdx++;
                         if (noteIdx == ARRAYSIZE(durationTick)) {
@@ -956,15 +962,15 @@ static void playMelody(void) {
             break;
                         
         case MELODYSTOP:
-            
-            /* Disable PWM */
-            PWM3CONbits.PWM3EN = 0;
-            
-            /* Stop Timer */
-            TMR2_Stop();
-            
+                        
             melodyState = MELODYIDLE;
-            break;
+
+						/* Stop note */
+						LL_TIM_SetPrescaler(TIM1, 1);
+						LL_TIM_SetAutoReload(TIM1, 1);
+						LL_TIM_OC_SetCompareCH1(TIM1, 1);
+
+						break;
     }
 		#endif
 }
@@ -972,6 +978,14 @@ static void playMelody(void) {
 static int getButtonValue(void) {
 	return LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_6);
 }
+
+#if 0
+static void APP_TIM1Config(void);
+static void APP_PWMChannelConfig(void);
+#endif
+
+uint8_t p1 = 15; // 50% duty cycle
+
 
 /**
   * @brief  Main program.
@@ -990,6 +1004,17 @@ int main(void)
   /* Configure GPIO Pins */
   APP_GpioConfig();
 
+	TMIStart(1, 1);
+	PWMStart(1, 1, 1);
+
+	
+	
+	#if 0
+	APP_TIM1Config();
+  APP_PWMChannelConfig();
+
+//	LL_TIM_OC_SetCompareCH1(TIM1, p1); // Test
+#endif
 	
 	  /* Wait 1 second for any button bouncing to settle after reset, we may have
      * just been woken with a button press and need to filter it out
@@ -1082,9 +1107,6 @@ static void APP_GpioConfig(void)
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOB);
   LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
 
-  /* Configure PA1 in output mode */
-//  LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_1, LL_GPIO_MODE_OUTPUT);
-	
 	
 	/*
 	
@@ -1125,22 +1147,132 @@ static void APP_GpioConfig(void)
 	LL_GPIO_SetPinPull(GPIOC, LL_GPIO_PIN_1, LL_GPIO_PULL_DOWN);
 	LL_GPIO_SetPinMode(GPIOC, LL_GPIO_PIN_1, LL_GPIO_MODE_INPUT);
 	
-	
 	/* Button input */
 	LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_6, LL_GPIO_PULL_UP);
-	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_INPUT);
-	
-	
-	
-	
-	
-  /* Default output type (after reset) is push-pull */
-  /* LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_1, LL_GPIO_OUTPUT_PUSHPULL); */
-  /* Configure GPIO speed in low speed */
-  /* LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_1, LL_GPIO_SPEED_FREQ_LOW); */
-  /* Default (after reset) is no pull */
-  /* LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_1, LL_GPIO_PULL_NO); */
+	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_INPUT);	
 }
+
+
+
+uint16_t prescaler  = 1;
+uint16_t autoreload = 1201;
+uint16_t compare    = 600;
+
+
+#if 0
+
+static void APP_PWMChannelConfig(void)
+{
+	// PA5 is PWM output TIM1_CH1
+	
+  LL_GPIO_InitTypeDef GpioInit = {0};
+  LL_TIM_OC_InitTypeDef TIM_OC_Initstruct = {0};
+
+//  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA); // already defined in APP_GpioConfig
+
+  /* PA5 -> TIM1_CH1 */
+  GpioInit.Pin = LL_GPIO_PIN_5;
+  GpioInit.Mode = LL_GPIO_MODE_ALTERNATE;
+  GpioInit.Alternate = LL_GPIO_AF_2;
+  LL_GPIO_Init(GPIOA, &GpioInit);
+
+  TIM_OC_Initstruct.OCMode = LL_TIM_OCMODE_PWM1;
+  TIM_OC_Initstruct.OCState = LL_TIM_OCSTATE_ENABLE;
+  TIM_OC_Initstruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
+  TIM_OC_Initstruct.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
+
+  /* Set channel compare values */
+  TIM_OC_Initstruct.CompareValue = compare; // 50% duty cycle
+  LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH1, &TIM_OC_Initstruct);
+	
+	
+	
+}
+
+
+static void APP_TIM1Config(void)
+{
+  LL_TIM_InitTypeDef TIM1CountInit = {0};
+	
+  LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_TIM1);
+ 
+  TIM1CountInit.ClockDivision       = LL_TIM_CLOCKDIVISION_DIV1;
+  TIM1CountInit.CounterMode         = LL_TIM_COUNTERMODE_UP;
+  TIM1CountInit.Prescaler           = prescaler-1;
+  TIM1CountInit.Autoreload          = autoreload-1;
+  TIM1CountInit.RepetitionCounter   = 0;   
+  LL_TIM_Init(TIM1,&TIM1CountInit);    
+
+  LL_TIM_EnableAllOutputs(TIM1);
+  LL_TIM_EnableCounter(TIM1);
+}
+#endif
+
+static void PWMStart(uint16_t prescaler, uint16_t autoreload, uint16_t compare)
+{
+	LL_TIM_SetPrescaler(TIM1, prescaler);
+	LL_TIM_SetAutoReload(TIM1, autoreload);
+		
+	// PA5 is PWM output TIM1_CH1
+	
+  LL_GPIO_InitTypeDef GpioInit = {0};
+  LL_TIM_OC_InitTypeDef TIM_OC_Initstruct = {0};
+
+	//  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA); // already defined in APP_GpioConfig
+
+  /* PA5 -> TIM1_CH1 */
+  GpioInit.Pin = LL_GPIO_PIN_5;
+  GpioInit.Mode = LL_GPIO_MODE_ALTERNATE;
+  GpioInit.Alternate = LL_GPIO_AF_2;
+  LL_GPIO_Init(GPIOA, &GpioInit);
+
+  TIM_OC_Initstruct.OCMode = LL_TIM_OCMODE_PWM1;
+  TIM_OC_Initstruct.OCState = LL_TIM_OCSTATE_ENABLE;
+  TIM_OC_Initstruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
+  TIM_OC_Initstruct.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
+
+  /* Set channel compare values */
+  TIM_OC_Initstruct.CompareValue = compare; // 50% duty cycle
+  LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH1, &TIM_OC_Initstruct);	
+}
+
+static void PWMStop(void)
+{
+	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
+	LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_5);
+
+	TMIStop();
+}
+
+static void TMIStart(uint16_t prescaler, uint16_t autoreload)
+{
+  LL_TIM_InitTypeDef TIM1CountInit = {0};
+	
+	LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_TIM1);
+	 
+  TIM1CountInit.ClockDivision       = LL_TIM_CLOCKDIVISION_DIV1;
+  TIM1CountInit.CounterMode         = LL_TIM_COUNTERMODE_UP;
+  TIM1CountInit.Prescaler           = prescaler-1;
+  TIM1CountInit.Autoreload          = autoreload-1;
+  TIM1CountInit.RepetitionCounter   = 0;   
+  LL_TIM_Init(TIM1,&TIM1CountInit);    
+
+  LL_TIM_EnableAllOutputs(TIM1);
+  LL_TIM_EnableCounter(TIM1);
+}
+
+static void TMIStop(void)
+{	
+	LL_TIM_DisableCounter(TIM1);
+	LL_TIM_DisableAllOutputs(TIM1);
+
+  LL_TIM_DeInit(TIM1);
+	
+	LL_APB1_GRP2_DisableClock(LL_APB1_GRP2_PERIPH_TIM1);
+}
+
+
+
 
 
 /**
