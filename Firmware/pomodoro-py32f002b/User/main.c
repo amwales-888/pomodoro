@@ -111,12 +111,12 @@ static void waitMs(uint32_t msDelay);
 static int getButtonValue(void);
 
 
+static void PWMConfigure(void);
+static void TIMConfigure(void);
 static void	PWMSetFreq(uint16_t frequency);
-static void PWMStart(void);
-static void PWMStop(void);
-static void TMIStart(void);
-static void TMIStop(void);
 static void	PWMPause(void);
+static void	PWMUnpause(void);
+
 
 
 static struct process_s {
@@ -839,10 +839,10 @@ static uint32_t noteStartTick;
 static uint32_t noteDurationTick;
 
 static void playMelody(void) {
-//TODO
-    if (sleep) return;
-    #if 1
-    switch (melodyState) {
+
+		if (sleep) return;
+
+		switch (melodyState) {
 
         case MELODYIDLE:
             break;
@@ -912,19 +912,14 @@ static void playMelody(void) {
 
 						break;
     }
-		#endif
 }
 
 static int getButtonValue(void) {
 	return LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_6);
 }
 
-#if 0
-static void APP_TIM1Config(void);
-static void APP_PWMChannelConfig(void);
-#endif
 
-uint8_t p1 = 15; // 50% duty cycle
+#define SYSTEMCLOCK 24000000U /* 24 MHz */
 
 
 /**
@@ -937,7 +932,7 @@ int main(void)
 		APP_SystemClockConfig();
 
 		/* Fixme! hardcoded 24Mhz */
-		LL_InitTick(24000000, 100);  /* 10ms Tick */
+		LL_InitTick(SYSTEMCLOCK, 100);  /* 10ms Tick */
 		LL_SYSTICK_EnableIT();
 
 
@@ -947,8 +942,8 @@ int main(void)
 		
 		
 		/* Setup PWM hardware */
-		TMIStart();
-		PWMStart();	
+		TIMConfigure();
+		PWMConfigure();	
 		
 	  /* Wait 1 second for any button bouncing to settle after reset, we may have
      * just been woken with a button press and need to filter it out
@@ -1022,10 +1017,10 @@ static void APP_SystemClockConfig(void)
 
   /* Set APB1 divider */
   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_Init1msTick(24000000);
+  LL_Init1msTick(SYSTEMCLOCK);
 
   /* Update CMSIS variable (which can be updated also through SystemCoreClockUpdate function) */
-  LL_SetSystemCoreClock(24000000);
+  LL_SetSystemCoreClock(SYSTEMCLOCK);
 }
 
 /**
@@ -1053,9 +1048,12 @@ static void APP_GpioConfig(void)
 	Output PB5 - OUT8
 	
 	
+	
 	Input PA3 - Enable RED LEDs
 	Input PA4 - Enable GREEN LEDs
 	Input PA6 - Button
+
+	Output PA5 - Buzzer
 	
 	*/
 	
@@ -1070,8 +1068,10 @@ static void APP_GpioConfig(void)
 	
 	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_3, LL_GPIO_MODE_OUTPUT);
 	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_4, LL_GPIO_MODE_OUTPUT);
-	
 
+	/* Buzzer */
+	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
+	
 	/* WORK Timer Inputs */
 	LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_7, LL_GPIO_PULL_DOWN);
 	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_7, LL_GPIO_MODE_INPUT);
@@ -1086,97 +1086,73 @@ static void APP_GpioConfig(void)
 }
 
 
-
-uint16_t prescaler  = 1;
-uint16_t autoreload = 1201;
-uint16_t compare    = 600;
-
-
-#if 0
-
-static void APP_PWMChannelConfig(void)
-{
-	// PA5 is PWM output TIM1_CH1
-	
-  LL_GPIO_InitTypeDef GpioInit = {0};
-  LL_TIM_OC_InitTypeDef TIM_OC_Initstruct = {0};
-
-//  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA); // already defined in APP_GpioConfig
-
-  /* PA5 -> TIM1_CH1 */
-  GpioInit.Pin = LL_GPIO_PIN_5;
-  GpioInit.Mode = LL_GPIO_MODE_ALTERNATE;
-  GpioInit.Alternate = LL_GPIO_AF_2;
-  LL_GPIO_Init(GPIOA, &GpioInit);
-
-  TIM_OC_Initstruct.OCMode = LL_TIM_OCMODE_PWM1;
-  TIM_OC_Initstruct.OCState = LL_TIM_OCSTATE_ENABLE;
-  TIM_OC_Initstruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
-  TIM_OC_Initstruct.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
-
-  /* Set channel compare values */
-  TIM_OC_Initstruct.CompareValue = compare; // 50% duty cycle
-  LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH1, &TIM_OC_Initstruct);
-	
-	
-	
-}
-
-
-static void APP_TIM1Config(void)
-{
-  LL_TIM_InitTypeDef TIM1CountInit = {0};
-	
-  LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_TIM1);
- 
-  TIM1CountInit.ClockDivision       = LL_TIM_CLOCKDIVISION_DIV1;
-  TIM1CountInit.CounterMode         = LL_TIM_COUNTERMODE_UP;
-  TIM1CountInit.Prescaler           = prescaler-1;
-  TIM1CountInit.Autoreload          = autoreload-1;
-  TIM1CountInit.RepetitionCounter   = 0;   
-  LL_TIM_Init(TIM1,&TIM1CountInit);    
-
-  LL_TIM_EnableAllOutputs(TIM1);
-  LL_TIM_EnableCounter(TIM1);
-}
-#endif
-
-
-/* Min value for frequency is 366 Hz
- * Max value for frequency is 65.536 KHz
+/* To simplify this implementation we have set the 
+ * Lower and upperbounds to 366 Hz and 65536 Hz respectively.
+ *
+ * Min value for frequency is   366 Hz
+ * Max value for frequency is 65536 Hz
  */
+static int isPaused = 0;
+
 static void	PWMSetFreq(uint16_t frequency) {
 
 		if (frequency < 366) {
-				PWMPause();
+
+			PWMPause();
 
 		} else {
 	
-				uint16_t autoreload = 24000000U / frequency;
+				PWMUnpause();
+
+#if 0			
+				uint16_t autoreload = SYSTEMCLOCK / frequency;
 										
 				LL_TIM_SetPrescaler(TIM1, 1);
 				LL_TIM_SetAutoReload(TIM1, autoreload);
 				LL_TIM_OC_SetCompareCH1(TIM1, autoreload / 2); /* 50 % duty */			
+#else			
+				uint16_t prescaler = (SYSTEMCLOCK / 2) / frequency;
+										
+				LL_TIM_SetPrescaler(TIM1, prescaler);
+				LL_TIM_SetAutoReload(TIM1, 2);
+				LL_TIM_OC_SetCompareCH1(TIM1, 1); /* 50 % duty */				
+#endif			
+			
 		}
 }
 
 static void	PWMPause(void) {
-		LL_TIM_OC_SetCompareCH1(TIM1, 0);
-}
-    
-static void PWMStart(void)
-{
-	// PA5 is PWM output TIM1_CH1
 	
-  LL_GPIO_InitTypeDef GpioInit = {0};
+		if (isPaused) return;
+
+		LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
+		LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_5);
+		
+		isPaused = 1;		
+}
+
+static void	PWMUnpause(void) {
+
+		if (!isPaused) return;
+	
+		LL_GPIO_InitTypeDef GpioInit = {0};
+
+		GpioInit.Pin = LL_GPIO_PIN_5;
+		GpioInit.Mode = LL_GPIO_MODE_ALTERNATE;
+		GpioInit.Alternate = LL_GPIO_AF_2;
+		LL_GPIO_Init(GPIOA, &GpioInit);
+
+		isPaused = 0;
+}
+
+
+static void PWMConfigure(void)
+{
+	// PA5 is PWM output TIM1_CH1 its initial state is 
+	// configured as a simple output pulled low
+	
   LL_TIM_OC_InitTypeDef TIM_OC_Initstruct = {0};
-
-  /* PA5 -> TIM1_CH1 */
-  GpioInit.Pin = LL_GPIO_PIN_5;
-  GpioInit.Mode = LL_GPIO_MODE_ALTERNATE;
-  GpioInit.Alternate = LL_GPIO_AF_2;
-  LL_GPIO_Init(GPIOA, &GpioInit);
-
+	
   TIM_OC_Initstruct.OCMode = LL_TIM_OCMODE_PWM1;
   TIM_OC_Initstruct.OCState = LL_TIM_OCSTATE_ENABLE;
   TIM_OC_Initstruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
@@ -1185,15 +1161,21 @@ static void PWMStart(void)
   /* Set channel compare value */	
   TIM_OC_Initstruct.CompareValue = 0; // 50% duty cycle
   LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH1, &TIM_OC_Initstruct);	
+
+	/* Set to initial state to paused and pulled low.
+	 * To start the PWM on the output pin call PWMUnpause()
+	 */
+	isPaused = 1;		
 }
 
+/*
 static void PWMStop(void)
-{
-	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
-	LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_5);
+{	
+	PWMPause();
 }
+*/
 
-static void TMIStart(void)
+static void TIMConfigure(void)
 {
   LL_TIM_InitTypeDef TIM1CountInit = {0};
 	
@@ -1201,15 +1183,16 @@ static void TMIStart(void)
 	 
   TIM1CountInit.ClockDivision       = LL_TIM_CLOCKDIVISION_DIV1;
   TIM1CountInit.CounterMode         = LL_TIM_COUNTERMODE_UP;
-  TIM1CountInit.Prescaler           = 0;
-  TIM1CountInit.Autoreload          = 0;
-  TIM1CountInit.RepetitionCounter   = 0;   
+  TIM1CountInit.Prescaler           = (SYSTEMCLOCK / 2) / 25000; 
+  TIM1CountInit.Autoreload          = 2;
+  TIM1CountInit.RepetitionCounter   = 1; /* 25 KHz with 50% Duty cycle */   
   LL_TIM_Init(TIM1,&TIM1CountInit);    
 
   LL_TIM_EnableAllOutputs(TIM1);
   LL_TIM_EnableCounter(TIM1);
 }
 
+/*
 static void TMIStop(void)
 {	
 	LL_TIM_DisableCounter(TIM1);
@@ -1219,7 +1202,7 @@ static void TMIStop(void)
 	
 	LL_APB1_GRP2_DisableClock(LL_APB1_GRP2_PERIPH_TIM1);
 }
-
+*/
 
 
 

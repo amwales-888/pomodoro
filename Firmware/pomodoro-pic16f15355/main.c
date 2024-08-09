@@ -745,8 +745,6 @@ void main(void)
     
     ledState = STATERELAXWAITINGON;
     
-    startMelody();
-    
 #endif
     
     

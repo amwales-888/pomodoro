@@ -32,3 +32,10 @@ Package-*.bash
 **/nbdist/**
 **/nbproject/private/**
 **/.generated_files/**
+
+JLinkLog.txt
+
+**/DebugConfig/**
+**/Listings/**
+**/Objects/**
+**/RTE/**
