@@ -111,13 +111,12 @@ static void waitMs(uint32_t msDelay);
 static int getButtonValue(void);
 
 
-static void PWMStart(uint16_t prescaler, uint16_t autoreload, uint16_t compare);
+static void	PWMSetFreq(uint16_t frequency);
+static void PWMStart(void);
 static void PWMStop(void);
-static void TMIStart(uint16_t prescaler, uint16_t autoreload);
+static void TMIStart(void);
 static void TMIStop(void);
-
-
-
+static void	PWMPause(void);
 
 
 static struct process_s {
@@ -473,7 +472,15 @@ static void buttonHeld(void) {
      */    
         
     if (buttonCount > ((3 * 1000) / DEBOUNCE_DELAYMS)) {
-        
+
+			
+			resetAllLeds();
+			
+			
+
+			while (1);
+
+			
 			
 			//TODO
 			#if 0
@@ -615,29 +622,18 @@ static void processDisplay(void) {
     switch (ledState) {
         case STATEWORK: {
             
-            //LATC &= 0x80;
-            
             int percentage = (int)((systickCnt - processList[0].lastTick) * 100 / processList[0].periodTick);
             int count = (percentage - 1) / (100/7);
             int i;
                         
-            /* Port A is working display */
-
             for (i=0; i<count; i++) {                
-                //LATA &= ~(0x1 << i);    
-
 								resetLed(i+1);
             }            
-            
-//            LATA ^= 0x01 << count;
 						
 						toggleLed(count+1);
             
-            for (i=count+1; i<7; i++) {
-							
-							setLed(i+1);
-							
-                //LATA |= 0x1 << i;                
+            for (i=count+1; i<7; i++) {							
+								setLed(i+1);
             }
             
             break;
@@ -648,13 +644,7 @@ static void processDisplay(void) {
             buzzStart();
 
 						setAllLeds();
-				
-            /* Port C is relax display */
-            //LATC &= 0x80;
-            
-            /* Port A is working display */
-            //LATA |= 0x7F; 
-            
+				            
             ledState = STATEWORKWAITINGOFF;
             break;
             
@@ -664,37 +654,22 @@ static void processDisplay(void) {
 
 						resetAllLeds();
 				
-            /* Port C is relax display */
-            //LATC &= 0x80;
-
-            /* Port A is working display */
-            //LATA &= 0x80;
-
             ledState = STATEWORKWAITINGON;
             break;
 
         case STATERELAX: {
  
-            /* Port A is working display */
-					
-           // LATA &= 0x80;
-            
             int percentage = (int)((systickCnt - processList[0].lastTick) * 100 / processList[0].periodTick);
             int count = (percentage - 1) / (100/7);
             int i;
 
-            /* Port C is relax display */
-            
             for (i=0; i<count; i++) {  
 								resetLed(i+1);              
- //               LATC &= ~(0x1 << i);                
             }            
 
-//            LATC ^= 0x01 << count;
 						toggleLed(count+1);
             
             for (i=count+1; i<7; i++) {
- //               LATC |= 0x1 << i;  
 								setLed(i+1);              
             }
 
@@ -706,11 +681,6 @@ static void processDisplay(void) {
             buzzStart();
 
 						setAllLeds();
-            /* Port C is relax display */
-           // LATC |= 0x7F;
-            
-            /* Port A is working display */
-           // LATA &= 0x80;            
             
             ledState = STATERELAXWAITINGOFF;
             break;
@@ -721,12 +691,6 @@ static void processDisplay(void) {
             
 						resetAllLeds();
 				
-            /* Port C is relax display */
-           // LATC &= 0x80;            
-
-            /* Port A is working display */
-           // LATA &= 0x80;            
-            
             ledState = STATERELAXWAITINGON;
             break;
     }          
@@ -773,56 +737,38 @@ static void processRelaxExpired(void) {
 
 
 
-/* We have set TIMER2 so it covers the range 
- * 4us to 1024us with a 4us resolution ( remember it is
- * only an 8bit timer )
- *
- * To convert Freq to TIMER2 period with 4us resolution
- * we use the formulae
- * 
- * (1/FREQ * 1000000)/4 = period
- * 
- * We can simplify to 
- * 
- * period = (1000000/FREQ)/4
- * period = 250000/FREQ
- * 
- * Q. Why not use a 16bit timer?
- * A. We are restricted to TMR2 for use with PWM3 and it is
- *    an 8bit timer.
- * 
- * Q. Where are all the other octaves
+/* Q. Where are all the other octaves
  * A. We require another timebase and I got tired of typing,
  *    these notes seem sufficient for this use case.
  */
-#define NOTE_C6  (uint16_t)(24000000U/1047) /* 1047 Hz */
-#define NOTE_CS6 (uint16_t)(24000000U/1108) /* 1108 Hz */
-#define NOTE_D6  (uint16_t)(24000000U/1174) /* 1174 Hz */
-#define NOTE_DS6 (uint16_t)(24000000U/1244) /* 1244 Hz */
-#define NOTE_E6  (uint16_t)(24000000U/1318) /* 1318 Hz */
-#define NOTE_F6  (uint16_t)(24000000U/1396) /* 1396 Hz */
-#define NOTE_FS6 (uint16_t)(24000000U/1479) /* 1479 Hz */
-#define NOTE_G6  (uint16_t)(24000000U/1567) /* 1567 Hz */
-#define NOTE_GS6 (uint16_t)(24000000U/1661) /* 1661 Hz */
-#define NOTE_A6  (uint16_t)(24000000U/1760) /* 1760 Hz */
-#define NOTE_AS6 (uint16_t)(24000000U/1864) /* 1864 Hz */
-#define NOTE_B6  (uint16_t)(24000000U/1975) /* 1975 Hz */
-#define NOTE_C7  (uint16_t)(24000000U/2093) /* 2093 Hz */
-#define NOTE_CS7 (uint16_t)(24000000U/2217) /* 2217 Hz */
-#define NOTE_D7  (uint16_t)(24000000U/2349) /* 2349 Hz */
-#define NOTE_DS7 (uint16_t)(24000000U/2489) /* 2489 Hz */
-#define NOTE_E7  (uint16_t)(24000000U/2637) /* 2637 Hz */
-#define NOTE_F7  (uint16_t)(24000000U/2794) /* 2794 Hz */
-#define NOTE_FS7 (uint16_t)(24000000U/2960) /* 2960 Hz */
-#define NOTE_G7  (uint16_t)(24000000U/3136) /* 3136 Hz */
-#define NOTE_GS7 (uint16_t)(24000000U/3322) /* 3322 Hz */
-#define NOTE_A7  (uint16_t)(24000000U/3520) /* 3520 Hz */
-#define NOTE_AS7 (uint16_t)(24000000U/3729) /* 3729 Hz */
-#define NOTE_B7  (uint16_t)(24000000U/3951) /* 3951 Hz */
-#define NOTE_C8  (uint16_t)(24000000U/4186) /* 4186 Hz */
-#define NOTE_CS8 (uint16_t)(24000000U/4435) /* 4435 Hz */
-#define NOTE_D8  (uint16_t)(24000000U/4699) /* 4699 Hz */
-#define NOTE_DS8 (uint16_t)(24000000U/4978) /* 4978 Hz */
+#define NOTE_C6  (uint16_t)(1047) /* 1047 Hz */
+#define NOTE_CS6 (uint16_t)(1108) /* 1108 Hz */
+#define NOTE_D6  (uint16_t)(1174) /* 1174 Hz */
+#define NOTE_DS6 (uint16_t)(1244) /* 1244 Hz */
+#define NOTE_E6  (uint16_t)(1318) /* 1318 Hz */
+#define NOTE_F6  (uint16_t)(1396) /* 1396 Hz */
+#define NOTE_FS6 (uint16_t)(1479) /* 1479 Hz */
+#define NOTE_G6  (uint16_t)(1567) /* 1567 Hz */
+#define NOTE_GS6 (uint16_t)(1661) /* 1661 Hz */
+#define NOTE_A6  (uint16_t)(1760) /* 1760 Hz */
+#define NOTE_AS6 (uint16_t)(1864) /* 1864 Hz */
+#define NOTE_B6  (uint16_t)(1975) /* 1975 Hz */
+#define NOTE_C7  (uint16_t)(2093) /* 2093 Hz */
+#define NOTE_CS7 (uint16_t)(2217) /* 2217 Hz */
+#define NOTE_D7  (uint16_t)(2349) /* 2349 Hz */
+#define NOTE_DS7 (uint16_t)(2489) /* 2489 Hz */
+#define NOTE_E7  (uint16_t)(2637) /* 2637 Hz */
+#define NOTE_F7  (uint16_t)(2794) /* 2794 Hz */
+#define NOTE_FS7 (uint16_t)(2960) /* 2960 Hz */
+#define NOTE_G7  (uint16_t)(3136) /* 3136 Hz */
+#define NOTE_GS7 (uint16_t)(3322) /* 3322 Hz */
+#define NOTE_A7  (uint16_t)(3520) /* 3520 Hz */
+#define NOTE_AS7 (uint16_t)(3729) /* 3729 Hz */
+#define NOTE_B7  (uint16_t)(3951) /* 3951 Hz */
+#define NOTE_C8  (uint16_t)(4186) /* 4186 Hz */
+#define NOTE_CS8 (uint16_t)(4435) /* 4435 Hz */
+#define NOTE_D8  (uint16_t)(4699) /* 4699 Hz */
+#define NOTE_DS8 (uint16_t)(4978) /* 4978 Hz */
 
 
 #define NOTE_RST 0x00
@@ -916,10 +862,8 @@ static void playMelody(void) {
                     noteStartTick = systickCnt;
                     noteDurationTick = durationTick[noteIdx];
 
-										/* Play note */																					
-										LL_TIM_SetPrescaler(TIM1, 1);
-										LL_TIM_SetAutoReload(TIM1, melody[noteIdx]);
-										LL_TIM_OC_SetCompareCH1(TIM1, melody[noteIdx]/2);
+										/* Play note */	
+										PWMSetFreq(melody[noteIdx]);
 
                     noteState = NOTEPLAY;                    
                     
@@ -930,12 +874,10 @@ static void playMelody(void) {
                         noteStartTick = systickCnt;
                         noteDurationTick = durationTick[noteIdx];
                         
-                        noteState = NOTEREST;
-
 												/* Stop note */
-												LL_TIM_SetPrescaler(TIM1, 1);
-												LL_TIM_SetAutoReload(TIM1, 1);
-												LL_TIM_OC_SetCompareCH1(TIM1, 1);
+												PWMPause();
+
+												noteState = NOTEREST;
                     }
                     break;
                     
@@ -966,9 +908,7 @@ static void playMelody(void) {
             melodyState = MELODYIDLE;
 
 						/* Stop note */
-						LL_TIM_SetPrescaler(TIM1, 1);
-						LL_TIM_SetAutoReload(TIM1, 1);
-						LL_TIM_OC_SetCompareCH1(TIM1, 1);
+						PWMPause();
 
 						break;
     }
@@ -993,34 +933,27 @@ uint8_t p1 = 15; // 50% duty cycle
   */
 int main(void)
 {
-  /* Configure HSI as Systemclock source */
-  APP_SystemClockConfig();
+		/* Configure HSI as Systemclock source */
+		APP_SystemClockConfig();
 
-	/* Fixme! hardcoded 24Mhz */
-	LL_InitTick(24000000, 100);  /* 10ms Tick */
-	LL_SYSTICK_EnableIT();
+		/* Fixme! hardcoded 24Mhz */
+		LL_InitTick(24000000, 100);  /* 10ms Tick */
+		LL_SYSTICK_EnableIT();
 
 
-  /* Configure GPIO Pins */
-  APP_GpioConfig();
+		/* Configure GPIO Pins */
+		APP_GpioConfig();
 
-	TMIStart(1, 1);
-	PWMStart(1, 1, 1);
-
-	
-	
-	#if 0
-	APP_TIM1Config();
-  APP_PWMChannelConfig();
-
-//	LL_TIM_OC_SetCompareCH1(TIM1, p1); // Test
-#endif
-	
+		
+		
+		/* Setup PWM hardware */
+		TMIStart();
+		PWMStart();	
+		
 	  /* Wait 1 second for any button bouncing to settle after reset, we may have
      * just been woken with a button press and need to filter it out
      */
 	
-
     while (getButtonValue() == 0) {
         waitMs(100);        
     }
@@ -1208,17 +1141,35 @@ static void APP_TIM1Config(void)
 }
 #endif
 
-static void PWMStart(uint16_t prescaler, uint16_t autoreload, uint16_t compare)
+
+/* Min value for frequency is 366 Hz
+ * Max value for frequency is 65.536 KHz
+ */
+static void	PWMSetFreq(uint16_t frequency) {
+
+		if (frequency < 366) {
+				PWMPause();
+
+		} else {
+	
+				uint16_t autoreload = 24000000U / frequency;
+										
+				LL_TIM_SetPrescaler(TIM1, 1);
+				LL_TIM_SetAutoReload(TIM1, autoreload);
+				LL_TIM_OC_SetCompareCH1(TIM1, autoreload / 2); /* 50 % duty */			
+		}
+}
+
+static void	PWMPause(void) {
+		LL_TIM_OC_SetCompareCH1(TIM1, 0);
+}
+    
+static void PWMStart(void)
 {
-	LL_TIM_SetPrescaler(TIM1, prescaler);
-	LL_TIM_SetAutoReload(TIM1, autoreload);
-		
 	// PA5 is PWM output TIM1_CH1
 	
   LL_GPIO_InitTypeDef GpioInit = {0};
   LL_TIM_OC_InitTypeDef TIM_OC_Initstruct = {0};
-
-	//  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA); // already defined in APP_GpioConfig
 
   /* PA5 -> TIM1_CH1 */
   GpioInit.Pin = LL_GPIO_PIN_5;
@@ -1231,8 +1182,8 @@ static void PWMStart(uint16_t prescaler, uint16_t autoreload, uint16_t compare)
   TIM_OC_Initstruct.OCPolarity = LL_TIM_OCPOLARITY_HIGH;
   TIM_OC_Initstruct.OCIdleState = LL_TIM_OCIDLESTATE_LOW;
 
-  /* Set channel compare values */
-  TIM_OC_Initstruct.CompareValue = compare; // 50% duty cycle
+  /* Set channel compare value */	
+  TIM_OC_Initstruct.CompareValue = 0; // 50% duty cycle
   LL_TIM_OC_Init(TIM1, LL_TIM_CHANNEL_CH1, &TIM_OC_Initstruct);	
 }
 
@@ -1240,11 +1191,9 @@ static void PWMStop(void)
 {
 	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_5, LL_GPIO_MODE_OUTPUT);
 	LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_5);
-
-	TMIStop();
 }
 
-static void TMIStart(uint16_t prescaler, uint16_t autoreload)
+static void TMIStart(void)
 {
   LL_TIM_InitTypeDef TIM1CountInit = {0};
 	
@@ -1252,8 +1201,8 @@ static void TMIStart(uint16_t prescaler, uint16_t autoreload)
 	 
   TIM1CountInit.ClockDivision       = LL_TIM_CLOCKDIVISION_DIV1;
   TIM1CountInit.CounterMode         = LL_TIM_COUNTERMODE_UP;
-  TIM1CountInit.Prescaler           = prescaler-1;
-  TIM1CountInit.Autoreload          = autoreload-1;
+  TIM1CountInit.Prescaler           = 0;
+  TIM1CountInit.Autoreload          = 0;
   TIM1CountInit.RepetitionCounter   = 0;   
   LL_TIM_Init(TIM1,&TIM1CountInit);    
 
