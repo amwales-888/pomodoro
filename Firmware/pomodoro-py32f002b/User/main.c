@@ -473,12 +473,11 @@ static void buttonHeld(void) {
         
     if (buttonCount > ((3 * 1000) / DEBOUNCE_DELAYMS)) {
 
-			
-			resetAllLeds();
+        resetAllLeds();
 			
 			
 
-			while (1);
+        while (1);
 
 			
 			
