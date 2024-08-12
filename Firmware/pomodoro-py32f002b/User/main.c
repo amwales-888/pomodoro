@@ -116,6 +116,13 @@ static void TIMConfigure(void);
 static void	PWMSetFreq(uint16_t frequency);
 static void	PWMPause(void);
 static void	PWMUnpause(void);
+static void TIMStop(void);
+static void PWMStop(void);
+
+static void APP_EnterDeepStop(void);
+
+
+
 
 
 
@@ -437,30 +444,17 @@ static void buttonReleased(void) {
 
     if (sleep) {
 
-			//TODO
-			#if 0
-        /* Stop our system timer */
-        
-        TMR0_StopTimer();
-
-        /* Wait for any button bouncing to settle */
-
-        __delay_ms(1000);
-
-        /* Go to sleep, the only interrupt active should be on our button */
-        
-        SLEEP();
+        APP_EnterDeepStop();
 
         /* An interrupt has woken us up from sleep */
         
-        NOP();
-        NOP();
-        NOP();
+        __NOP();
+        __NOP();
+        __NOP();
 
         /* restart */
         
-        RESET();
-				#endif
+        NVIC_SystemReset();
     }
 }
 
@@ -475,36 +469,12 @@ static void buttonHeld(void) {
 
         resetAllLeds();
 			
-			
+        PWMStop();
+        TIMStop();
 
-        while (1);
-
-			
-			
-			//TODO
-			#if 0
-        /* Turn off ALL LEDs */
-        
-        LATA &= 0x80;
-        LATC &= 0x80;        
-        
-        buzzStop();
-
-        /* Stop melody */
-
-        /* Disable PWM */
-        PWM3CONbits.PWM3EN = 0;
-
-        /* Stop Timer */
-        TMR2_Stop();
-
-
-
-        
         /* Signal that we want to enter sleep */
         
-        sleep = 1;    
-#endif				
+        sleep = 1;			
     }    
 }
 
@@ -1029,10 +999,12 @@ static void APP_SystemClockConfig(void)
   */
 static void APP_GpioConfig(void)
 {
-  /* Enable GPIO clocks */
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOB);
-  LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
+    LL_EXTI_InitTypeDef EXTI_InitStruct = {0};
+
+    /* Enable GPIO clocks */
+    LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOA);
+    LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOB);
+    LL_IOP_GRP1_EnableClock(LL_IOP_GRP1_PERIPH_GPIOC);
 
 	
 	/*
@@ -1082,6 +1054,20 @@ static void APP_GpioConfig(void)
 	/* Button input */
 	LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_6, LL_GPIO_PULL_UP);
 	LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_6, LL_GPIO_MODE_INPUT);	
+
+    /* Register interrupt handler for Butto so we can wake from sleep */
+    /* Configure PA6 as the EXTI6 interrupt input */
+    LL_EXTI_SetEXTISource(LL_EXTI_CONFIG_PORTA, LL_EXTI_CONFIG_LINE6);
+
+    /* Enable EXTI6 */
+    EXTI_InitStruct.Line = LL_EXTI_LINE_6;
+    EXTI_InitStruct.LineCommand = ENABLE;
+    /* Event mode */
+    EXTI_InitStruct.Mode = LL_EXTI_MODE_EVENT;
+    /* Trigger Falling Mode */
+    EXTI_InitStruct.Trigger = LL_EXTI_TRIGGER_FALLING;
+    /* Initialize the EXTI registers according to the specified parameters in EXTI_InitStruct  */
+    LL_EXTI_Init(&EXTI_InitStruct);
 }
 
 
@@ -1103,20 +1089,11 @@ static void	PWMSetFreq(uint16_t frequency) {
 	
 				PWMUnpause();
 
-#if 0			
-				uint16_t autoreload = SYSTEMCLOCK / frequency;
-										
-				LL_TIM_SetPrescaler(TIM1, 1);
-				LL_TIM_SetAutoReload(TIM1, autoreload);
-				LL_TIM_OC_SetCompareCH1(TIM1, autoreload / 2); /* 50 % duty */			
-#else			
 				uint16_t prescaler = (SYSTEMCLOCK / 2) / frequency;
 										
 				LL_TIM_SetPrescaler(TIM1, prescaler);
 				LL_TIM_SetAutoReload(TIM1, 2);
 				LL_TIM_OC_SetCompareCH1(TIM1, 1); /* 50 % duty */				
-#endif			
-			
 		}
 }
 
@@ -1167,12 +1144,10 @@ static void PWMConfigure(void)
 	isPaused = 1;		
 }
 
-/*
 static void PWMStop(void)
 {	
 	PWMPause();
 }
-*/
 
 static void TIMConfigure(void)
 {
@@ -1191,8 +1166,7 @@ static void TIMConfigure(void)
   LL_TIM_EnableCounter(TIM1);
 }
 
-/*
-static void TMIStop(void)
+static void TIMStop(void)
 {	
 	LL_TIM_DisableCounter(TIM1);
 	LL_TIM_DisableAllOutputs(TIM1);
@@ -1201,8 +1175,28 @@ static void TMIStop(void)
 	
 	LL_APB1_GRP2_DisableClock(LL_APB1_GRP2_PERIPH_TIM1);
 }
-*/
 
+static void APP_EnterDeepStop(void)
+{
+  /* Enable PWR clock */
+  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+
+  /* STOP mode with deep low power regulator ON */
+  LL_PWR_SetLprMode(LL_PWR_LPR_MODE_DLPR);
+
+  /* SRAM retention voltage aligned with digital LDO output */
+  LL_PWR_SetStopModeSramVoltCtrl(LL_PWR_SRAM_RETENTION_VOLT_CTRL_LDO);
+
+  /* Enter DeepSleep mode */
+  LL_LPM_EnableDeepSleep();
+
+  /* Request Wait For Event */
+   __SEV();
+   __WFE();
+   __WFE();
+
+   LL_LPM_EnableSleep();
+}
 
 
 

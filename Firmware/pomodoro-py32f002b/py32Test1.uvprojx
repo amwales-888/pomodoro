@@ -434,6 +434,11 @@
               <FileType>1</FileType>
               <FilePath>.\System\PY32F002B_LL_Driver\Src\py32f002b_ll_tim.c</FilePath>
             </File>
+            <File>
+              <FileName>py32f002b_ll_exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\System\PY32F002B_LL_Driver\Src\py32f002b_ll_exti.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

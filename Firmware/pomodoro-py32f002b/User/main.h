@@ -38,6 +38,7 @@ extern "C" {
 #include "py32f002b_ll_pwr.h"
 #include "py32f002b_ll_gpio.h"
 #include "py32f002b_ll_tim.h"
+#include "py32f002b_ll_exti.h"
 
 #if defined(USE_FULL_ASSERT)
 #include "py32_assert.h"
