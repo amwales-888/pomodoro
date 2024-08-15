@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="1" altunitdist="mil" altunit="mil"/>
+<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.1" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
@@ -161,10 +161,7 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="38" y2="0" width="0" layer="20"/>
-<wire x1="38" y1="0" x2="38" y2="69" width="0" layer="20"/>
-<wire x1="38" y1="69" x2="0" y2="69" width="0" layer="20"/>
-<wire x1="0" y1="69" x2="0" y2="0" width="0" layer="20"/>
+<wire x1="3" y1="0" x2="35" y2="0" width="0" layer="20"/>
 <hole x="3" y="66" drill="3"/>
 <hole x="35" y="66" drill="3"/>
 <hole x="3" y="3" drill="3"/>
@@ -182,71 +179,17 @@
 <text x="31.369" y="35.941" size="0.8128" layer="25" rot="R180">SWD</text>
 <text x="31.369" y="33.401" size="0.8128" layer="25" rot="R180">GND</text>
 <text x="31.369" y="30.861" size="0.8128" layer="25" rot="R180">3V3</text>
-<text x="2.54" y="48.26" size="0.8128" layer="26" rot="MR90">Pomodoro Timer v1.0 RevB</text>
+<text x="2.54" y="48.26" size="0.8128" layer="26" rot="MR90">Pomodoro Timer v1.0 RevB
+PY32</text>
+<wire x1="38" y1="3" x2="38" y2="66" width="0" layer="20"/>
+<wire x1="35" y1="69" x2="3" y2="69" width="0" layer="20"/>
+<wire x1="0" y1="66" x2="0" y2="3" width="0" layer="20"/>
+<wire x1="0" y1="66" x2="3" y2="69" width="0" layer="20" curve="-90"/>
+<wire x1="35" y1="69" x2="38" y2="66" width="0" layer="20" curve="-90"/>
+<wire x1="0" y1="3" x2="3" y2="0" width="0" layer="20" curve="90"/>
+<wire x1="38" y1="3" x2="35" y2="0" width="0" layer="20" curve="-90"/>
 </plain>
 <libraries>
-<library name="led" urn="urn:adsk.eagle:library:259">
-<description>&lt;b&gt;LEDs&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;&lt;br&gt;
-Extended by Federico Battaglin &lt;author&gt;&amp;lt;federico.rd@fdpinternational.com&amp;gt;&lt;/author&gt; with DUOLED</description>
-<packages>
-<package name="SML0805" urn="urn:adsk.eagle:footprint:15683/1" library_version="5">
-<description>&lt;b&gt;SML0805-2CW-TR (0805 PROFILE)&lt;/b&gt; COOL WHITE&lt;p&gt;
-Source: http://www.ledtronics.com/ds/smd-0603/Dstr0093.pdf</description>
-<wire x1="-0.95" y1="-0.55" x2="0.95" y2="-0.55" width="0.1016" layer="51"/>
-<wire x1="0.95" y1="-0.55" x2="0.95" y2="0.55" width="0.1016" layer="51"/>
-<wire x1="0.95" y1="0.55" x2="-0.95" y2="0.55" width="0.1016" layer="51"/>
-<wire x1="-0.95" y1="0.55" x2="-0.95" y2="-0.55" width="0.1016" layer="51"/>
-<wire x1="-0.175" y1="-0.025" x2="0" y2="0.15" width="0.0634" layer="21"/>
-<wire x1="0" y1="0.15" x2="0.15" y2="0" width="0.0634" layer="21"/>
-<wire x1="0.15" y1="0" x2="-0.025" y2="-0.175" width="0.0634" layer="21"/>
-<wire x1="-0.025" y1="-0.175" x2="-0.175" y2="-0.025" width="0.0634" layer="21"/>
-<circle x="-0.275" y="0.4" radius="0.125" width="0" layer="21"/>
-<smd name="C" x="-1.05" y="0" dx="1.2" dy="1.2" layer="1"/>
-<smd name="A" x="1.05" y="0" dx="1.2" dy="1.2" layer="1"/>
-<text x="-1.5" y="1" size="1.27" layer="25">&gt;NAME</text>
-<text x="-1.5" y="-2" size="1.27" layer="27">&gt;VALUE</text>
-</package>
-</packages>
-<packages3d>
-<package3d name="SML0805" urn="urn:adsk.eagle:package:15830/1" type="box" library_version="5">
-<description>SML0805-2CW-TR (0805 PROFILE) COOL WHITE
-Source: http://www.ledtronics.com/ds/smd-0603/Dstr0093.pdf</description>
-<packageinstances>
-<packageinstance name="SML0805"/>
-</packageinstances>
-</package3d>
-</packages3d>
-</library>
-<library name="IRLML2502TRPBF">
-<description>&lt;IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
-<packages>
-<package name="SOT95P237X112-3N">
-<description>&lt;b&gt;SOT-23-ren9&lt;/b&gt;&lt;br&gt;
-</description>
-<smd name="1" x="-1.05" y="0.95" dx="1.3" dy="0.6" layer="1"/>
-<smd name="2" x="-1.05" y="-0.95" dx="1.3" dy="0.6" layer="1"/>
-<smd name="3" x="1.05" y="0" dx="1.3" dy="0.6" layer="1"/>
-<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
-<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
-<wire x1="-1.95" y1="1.77" x2="1.95" y2="1.77" width="0.05" layer="51"/>
-<wire x1="1.95" y1="1.77" x2="1.95" y2="-1.77" width="0.05" layer="51"/>
-<wire x1="1.95" y1="-1.77" x2="-1.95" y2="-1.77" width="0.05" layer="51"/>
-<wire x1="-1.95" y1="-1.77" x2="-1.95" y2="1.77" width="0.05" layer="51"/>
-<wire x1="-0.65" y1="1.46" x2="0.65" y2="1.46" width="0.1" layer="51"/>
-<wire x1="0.65" y1="1.46" x2="0.65" y2="-1.46" width="0.1" layer="51"/>
-<wire x1="0.65" y1="-1.46" x2="-0.65" y2="-1.46" width="0.1" layer="51"/>
-<wire x1="-0.65" y1="-1.46" x2="-0.65" y2="1.46" width="0.1" layer="51"/>
-<wire x1="-0.65" y1="0.51" x2="0.3" y2="1.46" width="0.1" layer="51"/>
-<wire x1="-0.05" y1="1.46" x2="0.05" y2="1.46" width="0.2" layer="21"/>
-<wire x1="0.05" y1="1.46" x2="0.05" y2="-1.46" width="0.2" layer="21"/>
-<wire x1="0.05" y1="-1.46" x2="-0.05" y2="-1.46" width="0.2" layer="21"/>
-<wire x1="-0.05" y1="-1.46" x2="-0.05" y2="1.46" width="0.2" layer="21"/>
-<wire x1="-1.7" y1="1.5" x2="-0.4" y2="1.5" width="0.2" layer="21"/>
-</package>
-</packages>
-</library>
 <library name="rcl" urn="urn:adsk.eagle:library:334">
 <description>&lt;b&gt;Resistors, Capacitors, Inductors&lt;/b&gt;&lt;p&gt;
 Based on the previous libraries:
@@ -1675,6 +1618,72 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </package>
 </packages>
 </library>
+<library name="MMBT3904LT3G">
+<description>&lt;Transistor NPN 40V 200mA SOT-23 ON Semi MMBT3904LT3G NPN Bipolar Transistor,  900 mA 40 V, 3-Pin SOT-23&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
+<packages>
+<package name="SOT96P237X111-3N">
+<description>&lt;b&gt;SOT-23 (TO-236) CASE 318-08 ISSUE AR&lt;/b&gt;&lt;br&gt;
+</description>
+<smd name="1" x="-1.05" y="0.955" dx="1.25" dy="0.6" layer="1"/>
+<smd name="2" x="-1.05" y="-0.955" dx="1.25" dy="0.6" layer="1"/>
+<smd name="3" x="1.05" y="0" dx="1.25" dy="0.6" layer="1"/>
+<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
+<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
+<wire x1="-1.925" y1="1.77" x2="1.925" y2="1.77" width="0.05" layer="51"/>
+<wire x1="1.925" y1="1.77" x2="1.925" y2="-1.77" width="0.05" layer="51"/>
+<wire x1="1.925" y1="-1.77" x2="-1.925" y2="-1.77" width="0.05" layer="51"/>
+<wire x1="-1.925" y1="-1.77" x2="-1.925" y2="1.77" width="0.05" layer="51"/>
+<wire x1="-0.65" y1="1.46" x2="0.65" y2="1.46" width="0.1" layer="51"/>
+<wire x1="0.65" y1="1.46" x2="0.65" y2="-1.46" width="0.1" layer="51"/>
+<wire x1="0.65" y1="-1.46" x2="-0.65" y2="-1.46" width="0.1" layer="51"/>
+<wire x1="-0.65" y1="-1.46" x2="-0.65" y2="1.46" width="0.1" layer="51"/>
+<wire x1="-0.65" y1="0.505" x2="0.305" y2="1.46" width="0.1" layer="51"/>
+<wire x1="-0.075" y1="1.46" x2="0.075" y2="1.46" width="0.2" layer="21"/>
+<wire x1="0.075" y1="1.46" x2="0.075" y2="-1.46" width="0.2" layer="21"/>
+<wire x1="0.075" y1="-1.46" x2="-0.075" y2="-1.46" width="0.2" layer="21"/>
+<wire x1="-0.075" y1="-1.46" x2="-0.075" y2="1.46" width="0.2" layer="21"/>
+<wire x1="-1.675" y1="1.505" x2="-0.425" y2="1.505" width="0.2" layer="21"/>
+</package>
+</packages>
+</library>
+<library name="SparkFun-LED">
+<description>&lt;h3&gt;SparkFun LEDs&lt;/h3&gt;
+This library contains discrete LEDs for illumination or indication, but no displays.
+&lt;br&gt;
+&lt;br&gt;
+We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
+&lt;br&gt;
+&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
+&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
+&lt;br&gt;
+&lt;br&gt;
+You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
+<packages>
+<package name="LED-0603">
+<description>&lt;B&gt;LED 0603 SMT&lt;/B&gt;&lt;p&gt;
+0603, surface mount.
+&lt;p&gt;Specifications:
+&lt;ul&gt;&lt;li&gt;Pin count: 2&lt;/li&gt;
+&lt;li&gt;Pin pitch:0.075inch &lt;/li&gt;
+&lt;li&gt;Area: 0.06" x 0.03"&lt;/li&gt;
+&lt;/ul&gt;&lt;/p&gt;
+&lt;p&gt;Example device(s):
+&lt;ul&gt;&lt;li&gt;LED - BLUE&lt;/li&gt;</description>
+<smd name="C" x="0.877" y="0" dx="1" dy="1" layer="1" roundness="30" rot="R270"/>
+<smd name="A" x="-0.877" y="0" dx="1" dy="1" layer="1" roundness="30" rot="R270"/>
+<text x="0" y="0.635" size="0.6096" layer="25" font="vector" ratio="20" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-0.635" size="0.6096" layer="27" font="vector" ratio="20" align="top-center">&gt;VALUE</text>
+<wire x1="1.5875" y1="0.47625" x2="1.5875" y2="-0.47625" width="0.2032" layer="21"/>
+<wire x1="0.15875" y1="0.47625" x2="0.15875" y2="0" width="0.127" layer="51"/>
+<wire x1="0.15875" y1="0" x2="0.15875" y2="-0.47625" width="0.127" layer="51"/>
+<wire x1="0.15875" y1="0" x2="-0.15875" y2="0.3175" width="0.127" layer="51"/>
+<wire x1="0.15875" y1="0" x2="-0.15875" y2="-0.3175" width="0.127" layer="51"/>
+</package>
+</packages>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -1864,79 +1873,47 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </pass>
 </autorouter>
 <elements>
-<element name="LEDR7" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="30.48" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="29.48" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="55.88" y="80.01" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR7" library="SparkFun-LED" package="LED-0603" value="20ma" x="30.48" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="31.48" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG7" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="30.48" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="29.48" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="62.23" y="107.95" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDG7" library="SparkFun-LED" package="LED-0603" value="20ma" x="30.48" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="31.48" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG4" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="19.05" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="18.05" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="57.15" y="76.2" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDG4" library="SparkFun-LED" package="LED-0603" value="20ma" x="19.05" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="20.05" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG3" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="15.24" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="14.24" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="53.34" y="82.55" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDG3" library="SparkFun-LED" package="LED-0603" value="20ma" x="15.24" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="16.24" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG2" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="11.43" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="10.43" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="49.53" y="88.9" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDG2" library="SparkFun-LED" package="LED-0603" value="20ma" x="11.43" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="12.43" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG1" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="7.62" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="6.62" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="45.72" y="95.25" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDG1" library="SparkFun-LED" package="LED-0603" value="20ma" x="7.62" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="8.62" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDR6" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="26.67" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="25.67" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="52.07" y="86.36" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR6" library="SparkFun-LED" package="LED-0603" value="20ma" x="26.67" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="27.67" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDR5" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="22.86" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="21.86" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="48.26" y="92.71" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR5" library="SparkFun-LED" package="LED-0603" value="20ma" x="22.86" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="23.86" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDR4" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="19.05" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="18.05" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="44.45" y="99.06" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR4" library="SparkFun-LED" package="LED-0603" value="20ma" x="19.05" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="20.05" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDR3" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="15.24" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="14.24" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="46.99" y="71.12" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR3" library="SparkFun-LED" package="LED-0603" value="20ma" x="15.24" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="16.24" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDR2" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="11.43" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="10.43" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="43.18" y="77.47" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR2" library="SparkFun-LED" package="LED-0603" value="20ma" x="11.43" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="12.43" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDR1" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="7.62" y="54.61" smashed="yes" rot="R90">
-<attribute name="NAME" x="6.62" y="53.11" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="39.37" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDR1" library="SparkFun-LED" package="LED-0603" value="20ma" x="7.62" y="54.725" smashed="yes" rot="R270">
+<attribute name="NAME" x="8.62" y="56.225" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG6" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="26.67" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="25.67" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="58.42" y="95.25" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="LEDG6" library="SparkFun-LED" package="LED-0603" value="20ma" x="26.67" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="27.67" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
-<element name="LEDG5" library="led" library_urn="urn:adsk.eagle:library:259" package="SML0805" package3d_urn="urn:adsk.eagle:package:15830/1" value="20ma" x="22.86" y="59.69" smashed="yes" rot="R90">
-<attribute name="NAME" x="21.86" y="58.19" size="0.8128" layer="25" rot="R90"/>
-<attribute name="POPULARITY" value="17" x="54.61" y="101.6" size="1.778" layer="27" rot="R90" display="off"/>
-</element>
-<element name="Q1" library="IRLML2502TRPBF" package="SOT95P237X112-3N" value="IRLML2502TRPBF" x="34.29" y="45.72" smashed="yes" rot="R90">
-<attribute name="DESCRIPTION" value="IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon" x="77.47" y="67.31" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="HEIGHT" value="1.12mm" x="77.47" y="67.31" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MANUFACTURER_NAME" value="Infineon" x="77.47" y="67.31" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="IRLML2502TRPBF" x="77.47" y="67.31" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MOUSER_PART_NUMBER" value="942-IRLML2502TRPBF" x="77.47" y="67.31" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Infineon-Technologies/IRLML2502TRPBF?qs=9%252BKlkBgLFf37zQw9UlZd%2FQ%3D%3D" x="77.47" y="67.31" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="35.56" y="43.006" size="0.8128" layer="25" rot="R180" align="center"/>
-</element>
-<element name="Q2" library="IRLML2502TRPBF" package="SOT95P237X112-3N" value="IRLML2502TRPBF" x="3.81" y="45.72" smashed="yes" rot="R90">
-<attribute name="DESCRIPTION" value="IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon" x="46.99" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="HEIGHT" value="1.12mm" x="46.99" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MANUFACTURER_NAME" value="Infineon" x="46.99" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="IRLML2502TRPBF" x="46.99" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MOUSER_PART_NUMBER" value="942-IRLML2502TRPBF" x="46.99" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Infineon-Technologies/IRLML2502TRPBF?qs=9%252BKlkBgLFf37zQw9UlZd%2FQ%3D%3D" x="46.99" y="83.82" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="5.08" y="43.053" size="0.8128" layer="25" rot="R180" align="center"/>
+<element name="LEDG5" library="SparkFun-LED" package="LED-0603" value="20ma" x="22.86" y="60.186" smashed="yes" rot="R270">
+<attribute name="NAME" x="23.86" y="61.686" size="0.8128" layer="25" rot="R270"/>
 </element>
 <element name="R1" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="100R" x="30.48" y="49.53" smashed="yes" rot="R270">
 <attribute name="NAME" x="31.75" y="50.165" size="0.8128" layer="25" rot="R270"/>
@@ -2012,15 +1989,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="NAME" x="15.5592" y="33.444" size="0.8128" layer="25" rot="R90"/>
 </element>
 <element name="U$2" library="buzzer" package="BUZZER8X8" value="BUZZER8X8" x="19.05" y="17.78" smashed="yes" rot="R90"/>
-<element name="Q3" library="IRLML2502TRPBF" package="SOT95P237X112-3N" value="IRLML2502TRPBF" x="13.208" y="26.543" smashed="yes" rot="R270">
-<attribute name="DESCRIPTION" value="IRLML2502TRPBF N-Channel MOSFET, 4.2 A, 20 V IRLML2502, 3-Pin SOT-23 Infineon" x="24.638" y="41.783" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="HEIGHT" value="1.12mm" x="24.638" y="41.783" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MANUFACTURER_NAME" value="Infineon" x="24.638" y="41.783" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="IRLML2502TRPBF" x="24.638" y="41.783" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MOUSER_PART_NUMBER" value="942-IRLML2502TRPBF" x="24.638" y="41.783" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Infineon-Technologies/IRLML2502TRPBF?qs=9%252BKlkBgLFf37zQw9UlZd%2FQ%3D%3D" x="24.638" y="41.783" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="10.795" y="27.813" size="0.8128" layer="25" rot="R270" align="center"/>
-</element>
 <element name="ACTION" library="SparkFun-Switches" package="TACTILE_SWITCH_SMD_6.0X3.5MM" value="MOMENTARY-SWITCH-SPST-SMD-6.0X3.5MM" x="19.05" y="43.18" smashed="yes">
 <attribute name="NAME" x="19.177" y="45.593" size="1.016" layer="25" font="vector" align="bottom-center"/>
 <attribute name="PROD_ID" value="SWCH-14278" x="13.97" y="43.18" size="1.778" layer="27" display="off"/>
@@ -2048,11 +2016,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="VALUE" x="38.735" y="12.7" size="1.27" layer="27" rot="R90"/>
 </element>
 <element name="U$3" library="2aaabatt" package="2AAABATTSER" value="2AAABATT" x="19.05" y="34.29" smashed="yes" rot="MR90"/>
-<element name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" package="E2,5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="" x="3.9624" y="32.6674" smashed="yes" rot="MR0">
-<attribute name="NAME" x="4.5494" y="35.9374" size="0.8128" layer="26" ratio="10" rot="MR0"/>
-<attribute name="POPULARITY" value="16" x="26.8224" y="16.1574" size="1.778" layer="28" rot="MR0" display="off"/>
-<attribute name="SPICEPREFIX" value="C" x="26.8224" y="16.1574" size="1.778" layer="28" rot="MR0" display="off"/>
-<attribute name="VALUE" x="1.5494" y="30.2544" size="1.27" layer="28" ratio="10" rot="MR0"/>
+<element name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" package="E2,5-5" package3d_urn="urn:adsk.eagle:package:23344/1" value="" x="3.9624" y="29.6674" smashed="yes" rot="MR0">
+<attribute name="NAME" x="4.5494" y="32.9374" size="0.8128" layer="26" ratio="10" rot="MR0"/>
+<attribute name="POPULARITY" value="16" x="26.8224" y="13.1574" size="1.778" layer="28" rot="MR0" display="off"/>
+<attribute name="SPICEPREFIX" value="C" x="26.8224" y="13.1574" size="1.778" layer="28" rot="MR0" display="off"/>
+<attribute name="VALUE" x="1.5494" y="27.2544" size="1.27" layer="28" ratio="10" rot="MR0"/>
 </element>
 <element name="Q4" library="DMG2305UX-7" package="SOT96P240X115-3N" value="DMG2305UX-7" x="7.62" y="8.89" smashed="yes" rot="R90">
 <attribute name="DESCRIPTION" value="MOSFET P-Ch 20V 5A Enhancement SOT23 Diodes Inc DMG2305UX-7 P-channel MOSFET Transistor, -3.3 A, -20 V, 3-Pin SOT-23" x="22.86" y="6.35" size="1.778" layer="27" rot="R90" display="off"/>
@@ -2065,6 +2033,48 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </element>
 <element name="J1" library="SparkFun-Connectors" package="1X05" value="" x="33.02" y="40.64" smashed="yes" rot="R270">
 <attribute name="VALUE" x="30.988" y="41.91" size="0.6096" layer="27" font="vector" ratio="20" rot="R270"/>
+</element>
+<element name="Q5" library="MMBT3904LT3G" package="SOT96P237X111-3N" value="MMBT3904LT3G" x="11.43" y="24.13" smashed="yes" rot="R270">
+<attribute name="DESCRIPTION" value="Transistor NPN 40V 200mA SOT-23 ON Semi MMBT3904LT3G NPN Bipolar Transistor,  900 mA 40 V, 3-Pin SOT-23" x="11.43" y="24.13" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="HEIGHT" value="1.11mm" x="11.43" y="24.13" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MANUFACTURER_NAME" value="onsemi" x="11.43" y="24.13" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="MMBT3904LT3G" x="11.43" y="24.13" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MOUSER_PART_NUMBER" value="863-MMBT3904LT3G" x="11.43" y="24.13" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/onsemi/MMBT3904LT3G?qs=HVbQlW5zcXUpjKhCMxE5QQ%3D%3D" x="11.43" y="24.13" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="NAME" x="11.43" y="26.67" size="0.8128" layer="25" align="center"/>
+</element>
+<element name="Q6" library="MMBT3904LT3G" package="SOT96P237X111-3N" value="MMBT3904LT3G" x="34.29" y="48.26" smashed="yes" rot="R90">
+<attribute name="DESCRIPTION" value="Transistor NPN 40V 200mA SOT-23 ON Semi MMBT3904LT3G NPN Bipolar Transistor,  900 mA 40 V, 3-Pin SOT-23" x="34.29" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="HEIGHT" value="1.11mm" x="34.29" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MANUFACTURER_NAME" value="onsemi" x="34.29" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="MMBT3904LT3G" x="34.29" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MOUSER_PART_NUMBER" value="863-MMBT3904LT3G" x="34.29" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/onsemi/MMBT3904LT3G?qs=HVbQlW5zcXUpjKhCMxE5QQ%3D%3D" x="34.29" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="NAME" x="35.56" y="50.8" size="0.8128" layer="25" rot="R180" align="center"/>
+</element>
+<element name="Q7" library="MMBT3904LT3G" package="SOT96P237X111-3N" value="MMBT3904LT3G" x="3.81" y="48.26" smashed="yes" rot="R90">
+<attribute name="DESCRIPTION" value="Transistor NPN 40V 200mA SOT-23 ON Semi MMBT3904LT3G NPN Bipolar Transistor,  900 mA 40 V, 3-Pin SOT-23" x="3.81" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="HEIGHT" value="1.11mm" x="3.81" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MANUFACTURER_NAME" value="onsemi" x="3.81" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="MMBT3904LT3G" x="3.81" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MOUSER_PART_NUMBER" value="863-MMBT3904LT3G" x="3.81" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/onsemi/MMBT3904LT3G?qs=HVbQlW5zcXUpjKhCMxE5QQ%3D%3D" x="3.81" y="48.26" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="NAME" x="2.54" y="50.8" size="0.8128" layer="25" rot="R180" align="center"/>
+</element>
+<element name="R4" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="10k" x="33.3502" y="44.45" smashed="yes">
+<attribute name="NAME" x="31.2166" y="45.6946" size="0.8128" layer="25"/>
+<attribute name="POPULARITY" value="86" x="33.3502" y="44.45" size="1.778" layer="27" display="off"/>
+<attribute name="SPICEPREFIX" value="R" x="33.3502" y="44.45" size="1.778" layer="27" display="off"/>
+</element>
+<element name="R17" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="10K" x="5.08" y="44.45" smashed="yes" rot="R180">
+<attribute name="NAME" x="7.747" y="46.5074" size="0.8128" layer="25" rot="R180"/>
+<attribute name="POPULARITY" value="86" x="5.08" y="44.45" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="SPICEPREFIX" value="R" x="5.08" y="44.45" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="R18" library="rcl" library_urn="urn:adsk.eagle:library:334" package="R0805" package3d_urn="urn:adsk.eagle:package:23553/2" value="10k" x="14.5288" y="26.0604" smashed="yes" rot="R270">
+<attribute name="NAME" x="15.7988" y="26.6954" size="1.27" layer="25" rot="R270"/>
+<attribute name="POPULARITY" value="86" x="14.5288" y="26.0604" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="SPICEPREFIX" value="R" x="14.5288" y="26.0604" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 </elements>
 <signals>
@@ -2092,23 +2102,21 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="21.9955875" y1="33.631" x2="29.869" y2="33.631" width="0.4064" layer="1"/>
 <wire x1="29.869" y1="33.631" x2="33.02" y2="30.48" width="0.4064" layer="1"/>
 <wire x1="20" y1="25.67" x2="20" y2="24.318" width="0.4064" layer="1"/>
-<wire x1="20" y1="24.318" x2="19.304" y2="23.622" width="0.4064" layer="1"/>
-<wire x1="19.304" y1="23.622" x2="17.307" y2="23.622" width="0.4064" layer="1"/>
-<via x="16.129" y="30.48" extent="1-16" drill="0.35"/>
-<wire x1="16.129" y1="30.48" x2="7.49" y2="30.48" width="0.4064" layer="16"/>
-<wire x1="5.2324" y1="32.6674" x2="5.27680625" y2="32.69319375" width="0.4064" layer="1"/>
-<wire x1="7.49" y1="30.48" x2="5.27680625" y2="32.69319375" width="0.4064" layer="1"/>
-<wire x1="17.307" y1="23.622" x2="16.129" y2="24.8" width="0.4064" layer="1"/>
-<wire x1="16.129" y1="24.8" x2="16.129" y2="30.48" width="0.4064" layer="1"/>
+<wire x1="20" y1="24.318" x2="19.504" y2="23.822" width="0.4064" layer="1"/>
+<wire x1="19.504" y1="23.822" x2="17.107" y2="23.822" width="0.4064" layer="1"/>
+<via x="16.029" y="29.68" extent="1-16" drill="0.35"/>
+<wire x1="16.029" y1="29.68" x2="7.49" y2="29.68" width="0.4064" layer="16"/>
+<wire x1="7.49" y1="29.68" x2="5.245" y2="29.68" width="0.4064" layer="1"/>
+<wire x1="5.2324" y1="29.6674" x2="5.245" y2="29.68" width="0.4064" layer="1"/>
+<wire x1="17.107" y1="23.822" x2="16.229" y2="24.7" width="0.4064" layer="1"/>
+<wire x1="16.229" y1="29.48" x2="16.229" y2="24.7" width="0.4064" layer="1"/>
+<wire x1="16.229" y1="29.48" x2="16.029" y2="29.68" width="0.4064" layer="1"/>
 <wire x1="21.905" y1="29.591" x2="21.651" y2="29.337" width="0.4064" layer="1"/>
 <wire x1="21.651" y1="29.337" x2="21.651" y2="27.321" width="0.4064" layer="1"/>
 <wire x1="21.651" y1="27.321" x2="20" y2="25.67" width="0.4064" layer="1"/>
-<via x="7.49" y="30.48" extent="1-16" drill="0.35"/>
+<via x="7.49" y="29.68" extent="1-16" drill="0.35"/>
 </signal>
 <signal name="GND">
-<contactref element="Q1" pad="2"/>
-<contactref element="Q2" pad="2"/>
-<contactref element="Q3" pad="2"/>
 <contactref element="ACTION" pad="1"/>
 <contactref element="U$1" pad="7"/>
 <contactref element="C1" pad="2"/>
@@ -2122,17 +2130,13 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="20.132" y1="29.464" x2="20.132" y2="27.727" width="0.4064" layer="1"/>
 <wire x1="20.132" y1="27.727" x2="20.127" y2="27.722" width="0.2032" layer="1"/>
 <via x="20.127" y="27.722" extent="1-16" drill="0.35"/>
-<wire x1="13" y1="28.589" x2="12.258" y2="27.847" width="0.4064" layer="1"/>
-<wire x1="12.258" y1="27.593" x2="12.258" y2="27.847" width="0.2032" layer="1"/>
-<wire x1="13" y1="28.589" x2="13" y2="29" width="0.2032" layer="1"/>
-<via x="13" y="29" extent="1-16" drill="0.35"/>
+<via x="11.4" y="27.6" extent="1-16" drill="0.35"/>
 <wire x1="6.66" y1="7.79" x2="6.66" y2="6.99" width="0.4064" layer="1"/>
 <wire x1="7.73" y1="5.92" x2="6.66" y2="6.99" width="0.4064" layer="1"/>
 <via x="7.73" y="5.92" extent="1-16" drill="0.35"/>
-<wire x1="36.002" y1="43.654" x2="35.24" y2="44.416" width="0.4064" layer="1"/>
-<wire x1="35.24" y1="44.67" x2="35.24" y2="44.416" width="0.3048" layer="1"/>
-<wire x1="36.002" y1="43.654" x2="36.002" y2="24.605" width="0.4064" layer="1"/>
-<wire x1="36.002" y1="24.605" x2="34.349" y2="22.952" width="0.4064" layer="1"/>
+<wire x1="35.3162" y1="45.813" x2="35.875" y2="45.2542" width="0.3048" layer="1"/>
+<wire x1="35.875" y1="45.2542" x2="35.875" y2="24.478" width="0.3048" layer="1"/>
+<wire x1="35.875" y1="24.478" x2="34.349" y2="22.952" width="0.3048" layer="1"/>
 <via x="34.349" y="22.952" extent="1-16" drill="0.35"/>
 <wire x1="24.55" y1="6.415" x2="21.821" y2="9.144" width="0.4064" layer="16"/>
 <via x="19.939" y="9.144" extent="1-16" drill="0.35"/>
@@ -2146,9 +2150,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="20.2664" y1="33.3276" x2="20.2664" y2="27.8614" width="0.4064" layer="16"/>
 <wire x1="20.127" y1="27.722" x2="20.2664" y2="27.8614" width="0.3048" layer="16"/>
 <wire x1="19.304" y1="34.29" x2="20.2664" y2="33.3276" width="0.4064" layer="16"/>
-<wire x1="2.7626" y1="32.6674" x2="6.176" y2="29.254" width="0.4064" layer="1"/>
-<wire x1="13" y1="29" x2="12.746" y2="29.254" width="0.4064" layer="16"/>
-<wire x1="12.746" y1="29.254" x2="6.176" y2="29.254" width="0.4064" layer="16"/>
+<wire x1="4.876" y1="27.554" x2="6.476" y2="27.554" width="0.4064" layer="1"/>
+<wire x1="4.876" y1="27.554" x2="2.7626" y2="29.6674" width="0.4064" layer="1"/>
+<wire x1="11.4" y1="27.6" x2="11.354" y2="27.554" width="0.4064" layer="16"/>
+<wire x1="11.354" y1="27.554" x2="6.476" y2="27.554" width="0.4064" layer="16"/>
 <wire x1="20.127" y1="27.722" x2="20.127" y2="9.332" width="0.4064" layer="16"/>
 <wire x1="19.939" y1="9.144" x2="20.127" y2="9.332" width="0.4064" layer="16"/>
 <wire x1="15.9" y1="43.18" x2="15.646" y2="43.434" width="0.3048" layer="1"/>
@@ -2177,94 +2182,105 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <vertex x="38" y="69"/>
 <vertex x="0" y="69"/>
 </polygon>
-<wire x1="4.76" y1="44.67" x2="6.13" y2="44.67" width="0.4064" layer="1"/>
-<wire x1="6.13" y1="44.67" x2="6.35" y2="44.45" width="0.3048" layer="1"/>
-<via x="6.35" y="44.45" extent="1-16" drill="0.35"/>
-<wire x1="6.35" y1="44.45" x2="6.35" y2="39.243" width="0.4064" layer="16"/>
-<wire x1="6.35" y1="39.243" x2="1.905" y2="34.798" width="0.4064" layer="16"/>
-<wire x1="1.905" y1="33.525" x2="1.905" y2="34.798" width="0.4064" layer="16"/>
-<via x="6.176" y="29.254" extent="1-16" drill="0.35"/>
-<wire x1="2.6924" y1="32.6674" x2="2.6924" y2="32.7376" width="0.4064" layer="16"/>
-<wire x1="2.6924" y1="32.7376" x2="1.905" y2="33.525" width="0.4064" layer="16"/>
-<wire x1="2.6924" y1="32.6674" x2="4.315" y2="34.29" width="0.4064" layer="16"/>
-<wire x1="4.315" y1="34.29" x2="19.304" y2="34.29" width="0.4064" layer="16"/>
-<wire x1="2.6924" y1="32.6674" x2="2.6924" y2="34.3154" width="0.3048" layer="16"/>
-<wire x1="2.6924" y1="32.6674" x2="2.7626" y2="32.6674" width="0.3048" layer="1"/>
+<via x="8.6614" y="45.4406" extent="1-16" drill="0.35"/>
+<wire x1="8.6614" y1="45.4406" x2="8.6614" y2="41.5544" width="0.3048" layer="16"/>
+<wire x1="8.6614" y1="41.5544" x2="1.905" y2="34.798" width="0.3048" layer="16"/>
+<wire x1="1.905" y1="30.525" x2="1.905" y2="34.798" width="0.3048" layer="16"/>
+<via x="6.476" y="27.554" extent="1-16" drill="0.35"/>
+<wire x1="2.6924" y1="29.6674" x2="2.6924" y2="29.7376" width="0.4064" layer="16"/>
+<wire x1="2.6924" y1="29.7376" x2="1.905" y2="30.525" width="0.3048" layer="16"/>
+<wire x1="2.6924" y1="29.6674" x2="7.315" y2="34.29" width="0.4064" layer="16"/>
+<wire x1="7.315" y1="34.29" x2="19.304" y2="34.29" width="0.4064" layer="16"/>
+<wire x1="2.6924" y1="29.6674" x2="2.6924" y2="34.3154" width="0.3048" layer="16"/>
+<wire x1="2.6924" y1="29.6674" x2="2.7626" y2="29.6674" width="0.3048" layer="1"/>
+<contactref element="Q5" pad="2"/>
+<contactref element="Q6" pad="2"/>
+<contactref element="Q7" pad="2"/>
+<wire x1="10.475" y1="25.18" x2="10.475" y2="26.675" width="0.4064" layer="1"/>
+<wire x1="10.475" y1="26.675" x2="11.4" y2="27.6" width="0.4064" layer="1"/>
+<wire x1="8.6614" y1="45.4406" x2="7.0866" y2="47.0154" width="0.3048" layer="1"/>
+<wire x1="7.0866" y1="47.0154" x2="4.9596" y2="47.0154" width="0.3048" layer="1"/>
+<wire x1="4.9596" y1="47.0154" x2="4.765" y2="47.21" width="0.3048" layer="1"/>
+<wire x1="35.245" y1="47.21" x2="35.3162" y2="47.1388" width="0.3048" layer="1"/>
+<wire x1="35.3162" y1="47.1388" x2="35.3162" y2="45.813" width="0.3048" layer="1"/>
 </signal>
 <signal name="N$9">
 <contactref element="R1" pad="2"/>
 <contactref element="LEDR7" pad="A"/>
 <wire x1="30.48" y1="48.58" x2="30.287" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="30.287" y1="48.58" x2="29.21" y2="49.657" width="0.2032" layer="1"/>
-<wire x1="29.21" y1="54.39" x2="30.48" y2="55.66" width="0.2032" layer="1"/>
 <wire x1="29.21" y1="49.657" x2="29.21" y2="54.39" width="0.2032" layer="1"/>
+<wire x1="29.21" y1="54.39" x2="30.422" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="30.422" y1="55.602" x2="30.48" y2="55.602" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$11">
 <contactref element="R2" pad="2"/>
 <contactref element="LEDR6" pad="A"/>
 <wire x1="26.67" y1="48.58" x2="26.477" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="26.477" y1="48.58" x2="25.4" y2="49.657" width="0.2032" layer="1"/>
-<wire x1="25.4" y1="54.39" x2="26.67" y2="55.66" width="0.2032" layer="1"/>
 <wire x1="25.4" y1="49.657" x2="25.4" y2="54.39" width="0.2032" layer="1"/>
+<wire x1="25.4" y1="54.39" x2="26.612" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="26.612" y1="55.602" x2="26.67" y2="55.602" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$12">
 <contactref element="R3" pad="2"/>
 <contactref element="LEDR5" pad="A"/>
 <wire x1="22.86" y1="48.58" x2="22.667" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="22.667" y1="48.58" x2="21.59" y2="49.657" width="0.2032" layer="1"/>
-<wire x1="21.59" y1="54.39" x2="22.86" y2="55.66" width="0.2032" layer="1"/>
 <wire x1="21.59" y1="49.657" x2="21.59" y2="54.39" width="0.2032" layer="1"/>
+<wire x1="21.59" y1="54.39" x2="22.802" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="22.802" y1="55.602" x2="22.86" y2="55.602" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$13">
 <contactref element="R5" pad="2"/>
 <contactref element="LEDR4" pad="A"/>
 <wire x1="19.05" y1="48.58" x2="18.857" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="18.857" y1="48.58" x2="17.78" y2="49.657" width="0.2032" layer="1"/>
-<wire x1="17.78" y1="54.39" x2="19.05" y2="55.66" width="0.2032" layer="1"/>
 <wire x1="17.78" y1="49.657" x2="17.78" y2="54.39" width="0.2032" layer="1"/>
+<wire x1="17.78" y1="54.39" x2="18.992" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="18.992" y1="55.602" x2="19.05" y2="55.602" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$14">
 <contactref element="R6" pad="2"/>
 <contactref element="LEDR3" pad="A"/>
 <wire x1="15.24" y1="48.58" x2="14.986" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="14.986" y1="48.58" x2="13.97" y2="49.596" width="0.2032" layer="1"/>
-<wire x1="15.24" y1="55.66" x2="15.24" y2="55.499" width="0.2032" layer="1"/>
-<wire x1="15.24" y1="55.499" x2="13.97" y2="54.229" width="0.2032" layer="1"/>
-<wire x1="13.97" y1="49.596" x2="13.97" y2="54.229" width="0.2032" layer="1"/>
+<wire x1="13.97" y1="54.332" x2="15.24" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="13.97" y1="49.596" x2="13.97" y2="54.332" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$15">
 <contactref element="R7" pad="2"/>
 <contactref element="LEDR2" pad="A"/>
 <wire x1="11.43" y1="48.58" x2="11.176" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="11.176" y1="48.58" x2="10.16" y2="49.596" width="0.2032" layer="1"/>
-<wire x1="10.16" y1="54.39" x2="11.43" y2="55.66" width="0.2032" layer="1"/>
 <wire x1="10.16" y1="49.596" x2="10.16" y2="54.39" width="0.2032" layer="1"/>
+<wire x1="10.16" y1="54.39" x2="11.372" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="11.372" y1="55.602" x2="11.43" y2="55.602" width="0.2032" layer="1"/>
 </signal>
 <signal name="LEDR1">
 <contactref element="R8" pad="2"/>
 <contactref element="LEDR1" pad="A"/>
-<wire x1="7.62" y1="55.6272125" x2="7.62" y2="55.66" width="0.2032" layer="1"/>
 <wire x1="7.62" y1="48.58" x2="7.3797875" y2="48.58" width="0.2032" layer="1"/>
 <wire x1="7.3797875" y1="48.58" x2="6.362" y2="49.5977875" width="0.2032" layer="1"/>
 <wire x1="6.362" y1="49.5977875" x2="6.362" y2="54.3692125" width="0.2032" layer="1"/>
-<wire x1="6.362" y1="54.3692125" x2="7.62" y2="55.6272125" width="0.2032" layer="1"/>
+<wire x1="6.362" y1="54.3692125" x2="7.5947875" y2="55.602" width="0.2032" layer="1"/>
+<wire x1="7.5947875" y1="55.602" x2="7.62" y2="55.602" width="0.2032" layer="1"/>
 </signal>
 <signal name="BIN">
 <contactref element="U$1" pad="19"/>
-<contactref element="Q1" pad="1"/>
 <via x="15.86735625" y="40.0982625" extent="1-16" drill="0.35"/>
 <wire x1="17.0176" y1="38.465" x2="17.0176" y2="39.227" width="0.2032" layer="1"/>
 <wire x1="16.1463375" y1="40.0982625" x2="17.0176" y2="39.227" width="0.2032" layer="1"/>
 <wire x1="15.86735625" y1="40.0982625" x2="17.17109375" y2="41.402" width="0.2032" layer="16"/>
-<wire x1="17.17109375" y1="41.402" x2="29.591" y2="41.402" width="0.2032" layer="16"/>
-<via x="31.75" y="43.561" extent="1-16" drill="0.35"/>
-<wire x1="31.75" y1="43.561" x2="32.859" y2="44.67" width="0.2032" layer="1"/>
-<wire x1="32.859" y1="44.67" x2="33.34" y2="44.67" width="0.2032" layer="1"/>
-<wire x1="29.591" y1="41.402" x2="31.75" y2="43.561" width="0.2032" layer="16"/>
+<wire x1="17.17109375" y1="41.402" x2="29.1338" y2="41.402" width="0.2032" layer="16"/>
+<via x="30.9118" y="43.18" extent="1-16" drill="0.35"/>
+<wire x1="32.4002" y1="44.45" x2="31.1302" y2="43.18" width="0.2032" layer="1"/>
+<wire x1="30.9118" y1="43.18" x2="31.1302" y2="43.18" width="0.2032" layer="1"/>
+<wire x1="29.1338" y1="41.402" x2="30.9118" y2="43.18" width="0.2032" layer="16"/>
 <wire x1="15.86735625" y1="40.0982625" x2="16.1463375" y2="40.0982625" width="0.2032" layer="1"/>
+<contactref element="R4" pad="1"/>
 </signal>
 <signal name="N$40">
-<contactref element="Q1" pad="3"/>
 <contactref element="LEDR6" pad="C"/>
 <contactref element="LEDR5" pad="C"/>
 <contactref element="LEDR4" pad="C"/>
@@ -2273,42 +2289,43 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <contactref element="LEDR1" pad="C"/>
 <contactref element="LEDR7" pad="C"/>
 <wire x1="34.29" y1="50.673" x2="32.9565" y2="52.0065" width="0.3048" layer="1"/>
-<wire x1="34.29" y1="46.77" x2="34.29" y2="50.673" width="0.3048" layer="1"/>
 <via x="32.9565" y="52.0065" extent="1-16" drill="0.35"/>
 <wire x1="32.9565" y1="52.0065" x2="32.9565" y2="52.07" width="0.2032" layer="16"/>
 <wire x1="32.9565" y1="52.07" x2="30.48" y2="52.07" width="0.3048" layer="16"/>
 <via x="30.48" y="52.07" extent="1-16" drill="0.35"/>
-<wire x1="30.48" y1="52.07" x2="30.48" y2="53.56" width="0.2032" layer="1"/>
 <wire x1="30.48" y1="52.07" x2="26.67" y2="52.07" width="0.3048" layer="16"/>
 <via x="26.67" y="52.07" extent="1-16" drill="0.35"/>
-<wire x1="26.67" y1="52.07" x2="26.67" y2="53.56" width="0.2032" layer="1"/>
 <wire x1="26.67" y1="52.07" x2="22.86" y2="52.07" width="0.3048" layer="16"/>
 <via x="22.86" y="52.07" extent="1-16" drill="0.35"/>
-<wire x1="22.86" y1="52.07" x2="22.86" y2="53.56" width="0.2032" layer="1"/>
 <wire x1="22.86" y1="52.07" x2="19.05" y2="52.07" width="0.3048" layer="16"/>
 <via x="19.05" y="52.07" extent="1-16" drill="0.35"/>
-<wire x1="19.05" y1="52.07" x2="19.05" y2="53.56" width="0.2032" layer="1"/>
 <wire x1="19.05" y1="52.07" x2="15.24" y2="52.07" width="0.3048" layer="16"/>
 <via x="15.24" y="52.07" extent="1-16" drill="0.35"/>
-<wire x1="15.24" y1="52.07" x2="15.24" y2="53.56" width="0.2032" layer="1"/>
 <wire x1="15.24" y1="52.07" x2="11.557" y2="52.07" width="0.3048" layer="16"/>
 <wire x1="11.43" y1="52.197" x2="11.557" y2="52.07" width="0.2032" layer="16"/>
 <via x="11.43" y="52.197" extent="1-16" drill="0.35"/>
-<wire x1="11.43" y1="52.197" x2="11.43" y2="53.56" width="0.2032" layer="1"/>
 <wire x1="11.43" y1="52.197" x2="11.303" y2="52.07" width="0.2032" layer="16"/>
 <wire x1="11.303" y1="52.07" x2="7.62" y2="52.07" width="0.3048" layer="16"/>
 <via x="7.62" y="52.07" extent="1-16" drill="0.35"/>
-<wire x1="7.62" y1="52.07" x2="7.62" y2="53.56" width="0.2032" layer="1"/>
+<contactref element="Q6" pad="3"/>
+<wire x1="34.29" y1="49.31" x2="34.29" y2="50.673" width="0.3048" layer="1"/>
+<wire x1="7.62" y1="53.848" x2="7.62" y2="52.07" width="0.2032" layer="1"/>
+<wire x1="11.43" y1="53.848" x2="11.43" y2="52.197" width="0.2032" layer="1"/>
+<wire x1="15.24" y1="53.848" x2="15.24" y2="52.07" width="0.2032" layer="1"/>
+<wire x1="19.05" y1="53.848" x2="19.05" y2="52.07" width="0.2032" layer="1"/>
+<wire x1="22.86" y1="53.848" x2="22.86" y2="52.07" width="0.2032" layer="1"/>
+<wire x1="26.67" y1="53.848" x2="26.67" y2="52.07" width="0.2032" layer="1"/>
+<wire x1="30.48" y1="53.848" x2="30.48" y2="52.07" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$1">
 <contactref element="R9" pad="2"/>
 <contactref element="LEDG7" pad="A"/>
-<wire x1="30.48" y1="63.82" x2="30.48" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="30.48" y1="63.82" x2="30.48" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$2">
 <contactref element="R10" pad="2"/>
 <contactref element="LEDG6" pad="A"/>
-<wire x1="26.67" y1="63.82" x2="26.67" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="26.67" y1="63.82" x2="26.67" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="OUT7">
 <contactref element="R9" pad="1"/>
@@ -2337,27 +2354,27 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <signal name="N$3">
 <contactref element="R11" pad="2"/>
 <contactref element="LEDG5" pad="A"/>
-<wire x1="22.86" y1="63.82" x2="22.86" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="22.86" y1="63.82" x2="22.86" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$4">
 <contactref element="R12" pad="2"/>
 <contactref element="LEDG4" pad="A"/>
-<wire x1="19.05" y1="63.82" x2="19.05" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="19.05" y1="63.82" x2="19.05" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$5">
 <contactref element="R13" pad="2"/>
 <contactref element="LEDG3" pad="A"/>
-<wire x1="15.24" y1="63.82" x2="15.24" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="15.24" y1="63.82" x2="15.24" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$7">
 <contactref element="R14" pad="2"/>
 <contactref element="LEDG2" pad="A"/>
-<wire x1="11.43" y1="63.82" x2="11.43" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="11.43" y1="63.82" x2="11.43" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$8">
 <contactref element="R15" pad="2"/>
 <contactref element="LEDG1" pad="A"/>
-<wire x1="7.62" y1="63.82" x2="7.62" y2="60.74" width="0.2032" layer="1"/>
+<wire x1="7.62" y1="63.82" x2="7.62" y2="61.063" width="0.2032" layer="1"/>
 </signal>
 <signal name="OUT2">
 <contactref element="R14" pad="1"/>
@@ -2446,15 +2463,15 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="32.512" y1="16.51" x2="33.02" y2="16.51" width="0.2032" layer="16"/>
 </signal>
 <signal name="BIN1">
-<contactref element="Q2" pad="1"/>
 <contactref element="U$1" pad="20"/>
 <wire x1="16.3572" y1="38.465" x2="16.2302" y2="38.592" width="0.2032" layer="1"/>
-<wire x1="16.2302" y1="38.592" x2="8.557" y2="38.592" width="0.2032" layer="1"/>
-<wire x1="8.557" y1="38.592" x2="2.86" y2="44.289" width="0.2032" layer="1"/>
-<wire x1="2.86" y1="44.67" x2="2.86" y2="44.289" width="0.2032" layer="1"/>
+<wire x1="8.398" y1="38.592" x2="16.2302" y2="38.592" width="0.2032" layer="1"/>
+<contactref element="R17" pad="1"/>
+<wire x1="6.03" y1="44.45" x2="7.62" y2="42.86" width="0.2032" layer="1"/>
+<wire x1="7.62" y1="42.86" x2="7.62" y2="39.37" width="0.2032" layer="1"/>
+<wire x1="7.62" y1="39.37" x2="8.398" y2="38.592" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$10">
-<contactref element="Q2" pad="3"/>
 <contactref element="LEDG6" pad="C"/>
 <contactref element="LEDG5" pad="C"/>
 <contactref element="LEDG4" pad="C"/>
@@ -2462,45 +2479,47 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <contactref element="LEDG2" pad="C"/>
 <contactref element="LEDG1" pad="C"/>
 <contactref element="LEDG7" pad="C"/>
-<wire x1="7.62" y1="58.64" x2="5.622" y2="56.642" width="0.3048" layer="1"/>
-<wire x1="5.622" y1="56.642" x2="5.588" y2="56.642" width="0.3048" layer="1"/>
-<wire x1="3.81" y1="46.77" x2="3.81" y2="47.786" width="0.3048" layer="1"/>
-<wire x1="5.588" y1="49.564" x2="3.81" y2="47.786" width="0.3048" layer="1"/>
-<wire x1="5.588" y1="56.642" x2="5.588" y2="49.564" width="0.3048" layer="1"/>
-<wire x1="7.62" y1="58.64" x2="7.62" y2="57.15" width="0.3048" layer="1"/>
+<wire x1="5.588" y1="51.4944" x2="5.588" y2="56.642" width="0.3048" layer="1"/>
 <via x="7.62" y="57.15" extent="1-16" drill="0.35"/>
 <wire x1="7.62" y1="57.15" x2="11.43" y2="57.15" width="0.3048" layer="16"/>
 <via x="11.43" y="57.15" extent="1-16" drill="0.35"/>
-<wire x1="11.43" y1="57.15" x2="11.43" y2="58.64" width="0.2032" layer="1"/>
-<wire x1="15.24" y1="58.64" x2="15.24" y2="57.15" width="0.2032" layer="1"/>
 <via x="15.24" y="57.15" extent="1-16" drill="0.35"/>
 <wire x1="15.24" y1="57.15" x2="11.43" y2="57.15" width="0.3048" layer="16"/>
-<wire x1="19.05" y1="58.64" x2="19.05" y2="57.15" width="0.2032" layer="1"/>
 <via x="19.05" y="57.15" extent="1-16" drill="0.35"/>
 <wire x1="19.05" y1="57.15" x2="15.24" y2="57.15" width="0.3048" layer="16"/>
-<wire x1="22.86" y1="58.64" x2="22.86" y2="57.15" width="0.2032" layer="1"/>
 <via x="22.86" y="57.15" extent="1-16" drill="0.35"/>
 <wire x1="22.86" y1="57.15" x2="19.05" y2="57.15" width="0.3048" layer="16"/>
-<wire x1="26.67" y1="58.64" x2="26.67" y2="57.15" width="0.2032" layer="1"/>
 <via x="26.67" y="57.15" extent="1-16" drill="0.35"/>
 <wire x1="26.67" y1="57.15" x2="22.86" y2="57.15" width="0.3048" layer="16"/>
-<wire x1="30.48" y1="58.64" x2="30.48" y2="57.15" width="0.2032" layer="1"/>
 <via x="30.48" y="57.15" extent="1-16" drill="0.35"/>
 <wire x1="30.48" y1="57.15" x2="26.67" y2="57.15" width="0.3048" layer="16"/>
+<contactref element="Q7" pad="3"/>
+<wire x1="5.588" y1="51.4944" x2="3.81" y2="49.7164" width="0.3048" layer="1"/>
+<wire x1="3.81" y1="49.7164" x2="3.81" y2="49.31" width="0.3048" layer="1"/>
+<wire x1="6.096" y1="57.15" x2="7.62" y2="57.15" width="0.3048" layer="1"/>
+<wire x1="7.62" y1="57.15" x2="7.62" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="11.43" y1="57.15" x2="11.43" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="15.24" y1="57.15" x2="15.24" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="19.05" y1="57.15" x2="19.05" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="22.86" y1="57.15" x2="22.86" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="26.67" y1="57.15" x2="26.67" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="30.48" y1="57.15" x2="30.48" y2="59.309" width="0.2032" layer="1"/>
+<wire x1="5.588" y1="56.642" x2="6.096" y2="57.15" width="0.3048" layer="1"/>
 </signal>
 <signal name="N$26">
-<contactref element="Q3" pad="1"/>
 <contactref element="U$1" pad="1"/>
-<wire x1="14.158" y1="27.593" x2="14.158" y2="30.0428" width="0.2032" layer="1"/>
 <wire x1="16.3572" y1="32.242" x2="16.3572" y2="32.623" width="0.2032" layer="1"/>
 <wire x1="16.3572" y1="32.242" x2="14.158" y2="30.0428" width="0.2032" layer="1"/>
+<contactref element="R18" pad="1"/>
+<wire x1="14.5288" y1="27.0104" x2="14.158" y2="27.3812" width="0.2032" layer="1"/>
+<wire x1="14.158" y1="27.3812" x2="14.158" y2="30.0428" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$17">
-<contactref element="Q3" pad="3"/>
 <contactref element="U$2" pad="P$2"/>
-<wire x1="13.208" y1="25.493" x2="13.716" y2="25.493" width="0.4064" layer="1"/>
-<wire x1="15.05" y1="24.159" x2="13.716" y2="25.493" width="0.4064" layer="1"/>
-<wire x1="15.05" y1="24.159" x2="15.05" y2="21.78" width="0.4064" layer="1"/>
+<contactref element="Q5" pad="3"/>
+<wire x1="15.05" y1="21.78" x2="12.51" y2="21.78" width="0.4064" layer="1"/>
+<wire x1="12.51" y1="21.78" x2="11.43" y2="22.86" width="0.4064" layer="1"/>
+<wire x1="11.43" y1="22.86" x2="11.43" y2="23.08" width="0.4064" layer="1"/>
 </signal>
 <signal name="N$18">
 <contactref element="ACTION" pad="2"/>
@@ -2648,6 +2667,27 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="7.747" y1="24.257" x2="7.747" y2="27.4747875" width="0.2032" layer="1"/>
 <wire x1="7.747" y1="27.4747875" x2="18.386" y2="38.1137875" width="0.2032" layer="1"/>
 </signal>
+<signal name="N$6">
+<contactref element="R17" pad="2"/>
+<contactref element="Q7" pad="1"/>
+<wire x1="4.13" y1="44.45" x2="4.13" y2="45.6302" width="0.2032" layer="1"/>
+<wire x1="4.13" y1="45.6302" x2="2.855" y2="46.9052" width="0.2032" layer="1"/>
+<wire x1="2.855" y1="46.9052" x2="2.855" y2="47.21" width="0.2032" layer="1"/>
+</signal>
+<signal name="N$16">
+<contactref element="R4" pad="2"/>
+<contactref element="Q6" pad="1"/>
+<wire x1="34.3256" y1="45.8638" x2="33.335" y2="46.8544" width="0.2032" layer="1"/>
+<wire x1="33.335" y1="46.8544" x2="33.335" y2="47.21" width="0.2032" layer="1"/>
+<wire x1="34.3256" y1="45.8638" x2="34.3256" y2="44.4754" width="0.2032" layer="1"/>
+<wire x1="34.3002" y1="44.45" x2="34.3256" y2="44.4754" width="0.2032" layer="1"/>
+</signal>
+<signal name="N$19">
+<contactref element="R18" pad="2"/>
+<contactref element="Q5" pad="1"/>
+<wire x1="14.5288" y1="25.1104" x2="12.4546" y2="25.1104" width="0.2032" layer="1"/>
+<wire x1="12.4546" y1="25.1104" x2="12.385" y2="25.18" width="0.2032" layer="1"/>
+</signal>
 </signals>
 <mfgpreviewcolors>
 <mfgpreviewcolor name="soldermaskcolor" color="0xC8008000"/>
@@ -2659,6 +2699,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </board>
 </drawing>
 <compatibility>
+<note version="6.3" minversion="6.2.2" severity="warning">
+Since Version 6.2.2 text objects can contain more than one line,
+which will not be processed correctly with this version.
+</note>
 <note version="8.2" severity="warning">
 Since Version 8.2, EAGLE supports online libraries. The ids
 of those online libraries will not be understood (or retained)

@@ -468,6 +468,9 @@ static void buttonHeld(void) {
     if (buttonCount > ((3 * 1000) / DEBOUNCE_DELAYMS)) {
 
         resetAllLeds();
+
+				disableRedLeds();
+				disableGreenLeds();
 			
         PWMStop();
         TIMStop();
