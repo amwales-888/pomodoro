@@ -102,3 +102,11 @@ Working, partially populated board <img src="images/PXL_20240615_140358338.jpg">
 I recently started investigating the py32 series of microcontrollers from puya, these are very low cost ( 12cents, you read that correctly ) arm-cortex-m0 processors running at 24MHz.
 I ported the pomodoro firmware for the pic16 targeting the py32 controller and redsigned the board to support a tssop20 package. The new hardware is aimed at owering costs, along with the processor selection I opted for 14 leds in 0603 packages to reduce the cost. The complete BOM comes in at less than $1 and has feature parity with the original, supporting the same number of output and inputs as the original.
 
+<table>
+  <tr>
+    <td> <img src="Hardware/py32f002b/images/pomodoro-Top.png"></td>
+    <td> <img src="Hardware/py32f002b/images/pomodoro-Bot.png"></td>
+  </tr>
+</table>
+
+
