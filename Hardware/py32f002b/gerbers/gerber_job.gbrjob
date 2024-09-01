@@ -1,7 +1,7 @@
 {
     "Header": {
         "Comment": "All values are metric (mm)",
-        "CreationDate": "2024-08-15T20:58:05Z",
+        "CreationDate": "2024-09-01T11:12:01Z",
         "GenerationSoftware": {
             "Application": "EAGLE",
             "Vendor": "Autodesk",
@@ -13,7 +13,7 @@
         "BoardThickness": 1.67,
         "LayerNumber": 2,
         "Name": {
-            "ProjectId": "pomodoro-py32f002b"
+            "ProjectId": "pomodoro"
         },
         "Owner": "  <>",
         "Size": {
